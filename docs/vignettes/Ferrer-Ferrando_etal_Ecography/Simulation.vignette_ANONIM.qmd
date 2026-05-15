@@ -1,0 +1,849 @@
+---
+title: "SIMULATIONS CHANGING SPATIAL SCALE & PATTERN"
+author: "David Ferrer-Ferrando, Pedro Tarroso, Jose Luis Tellería, Pelayo Acevedo & Javier Fernández-López"
+date: 2024/12/23
+format:
+  pdf:
+    embed-resources: true 
+editor: visual
+df-print: paged
+toc: true
+---
+
+In this *vignette* we are going to show the procedure employed to simulate data similar to that employed on the manuscript. In this examples we are going to use simple simulations (with lower extension, number of spatial units) to reproduce the simulations followed in the manuscript. Here we are going to develope different procedures: create the environmental layers (predictors), change the spatial resolution of the environmental layers, create the expected abundance of different species (with different spatial patterns), simulate those species' individuals in space, sample and obtain their abundance values, and obtain their occurrences (detection) values.
+
+## 1. Getting started.
+
+First of all, install and charge all the packages required for the correct function of these simulations.
+
+```{r}
+#| label: Charge packages
+#| warning: false
+#| message: false
+#install.packages("terra", repos = "http://cran.us.r-project.org")
+#install.packages("dismo", repos = "http://cran.us.r-project.org")
+#install.packages("spatstat", repos = "http://cran.us.r-project.org")
+#install.packages("gstat", repos = "http://cran.us.r-project.org")
+#install.packages("fields", repos = "http://cran.us.r-project.org")
+library(terra)
+library(dismo)
+library(spatstat)
+library(fields)
+library(gstat)
+
+set.seed(1234) # To create reproducible results
+
+```
+
+## 2. Create environmental variables.
+
+We start creating a function, that let us control and determine some parameter values that define spatial variables. Inside of this function, we employ a previous developed function **gstat()** of the package **gstat**.
+
+```{r}
+#| label: Create the spatial covariate function generator
+#| message: false
+# Create the function
+generateVarb <- function(nrow, ncol, Vmean, Vsd, Vrange) {
+  
+  grd <- expand.grid(x=1:ncol, y=1:nrow)
+  
+  # Variable simulation data
+  model_varb <- gstat(formula=z~1, locations=~x+y, dummy=T, beta=Vmean, 
+                      model=vgm(psil=Vsd**2, range=Vrange, model="Sph"),
+                      nmax=40)
+  
+  variab <- predict(model_varb, newdata=grd, nsim=1)
+  colnames(variab) <- c("x", "y", "value")
+  
+  
+  variab_df <- data.frame(variab)
+  variab_df
+}
+
+```
+
+### 2.1 Climate variable.
+
+Once the function is ready, we start creating an environmental variable that imitates real climatic conditions (such as temperature or precipitation in this case, or the combination of them). To do this, we can control some parameters, like mean, range of variation, and spatial autocorrelation. Mean and range of variation let us create spatial covariates that imitate real spatial covariates or controled conditions. In this case, the most important parameter is spatial autocorrelation, determining the influence of spatial units by neighbor cells, the range (distance) of influence of the surrounding cells. For this climate condition, we want to determine high correlation, that means that each spatial unit cell is influenced by a high range of surrounding cells. In that case 45 units of range.
+
+```{r}
+#| label: Create Climate variable
+#| message: false
+clim <- generateVarb(nrow=200, ncol=200, Vmean=15, Vsd=4, Vrange=45)
+
+clim_rst <- rast(clim, type="xyz")
+plot(clim_rst)
+
+rm(clim)
+```
+
+This condition of spatial autocorrelation creates a spatial covariate with high correlation between adjacent cells, with a smooth variation of the value around the space.
+
+### 2.2 Vegetation variable.
+
+Now we create a second spatial environmental variable that imitates vegetation cover (such as percentage of vegetation). We assign realistic mean and range of variation. And in this case, to obtain less correlation between neighbor cells, we define a lower spatial autocorrelation value, 5.
+
+```{r}
+#| label: Create Vegetation variable
+#| message: false
+vegt <- generateVarb(nrow=200, ncol=200, Vmean=8, Vsd=4, Vrange=5)
+
+vegt_rst <- rast(vegt, type="xyz")
+plot(vegt_rst)
+
+rm(vegt)
+```
+
+This lower value of spatial autocorrelation creates a spatial covariate with lower correlation between additional cells, with more abrupt variation of the value around the space.
+
+### 2.3 Spatial resolution transformations.
+
+With the variables created, we want to obtain different spatial resolutions of those variables. For that, first, we create a reference layer defined with our desired extension, and change the extension of our variables by this one.
+
+```{r}
+#| label: Change spatial extention
+#create the desired raster 
+r_base.t <- rast(ncol=200, nrow=200, xmin=0, xmax=1, ymin=0, ymax=1)
+
+#put this extension to the predictors created above
+clim_rst@pntr[["extent"]] <- r_base.t@pntr[["extent"]]
+vegt_rst@pntr[["extent"]] <- r_base.t@pntr[["extent"]]
+
+```
+
+With this change, the extension of the variables start in 0 and finish in 1.
+
+The next step is the spatial resolution transformation, with the aggregation of cells to obtain lower resolution. In this case, we change the original resolution (1x1 units cell size) to 5x5 units cell size (*\_40\*), and 10x10 units cell size (*\_20\*).
+
+```{r}
+#| label: Change spatial resolution
+#| warning: false
+#climate variables
+clim_40 <- aggregate(clim_rst, fact = 5, fun = mean)  
+#from raster 200x200 dimensions to raster 40x40 dimensions
+clim_20 <- aggregate(clim_rst, fact = 10, fun = mean) 
+#from raster 200x200 dimensions to 20x20 dimensions
+plot(clim_rst)
+plot(clim_40)
+plot(clim_20)
+#vegetation variables
+vegt_40 <- aggregate(vegt_rst, fact = 5, fun = mean)  
+#from raster 200x200 dimensions to raster 40x40 dimensions
+vegt_20 <- aggregate(vegt_rst, fact = 10, fun = mean) 
+#from raster 200x200 dimensions to raster 20x20 dimensions
+plot(vegt_rst)
+plot(vegt_40)
+plot(vegt_20)
+```
+
+## 3. Create the expected abundance for the species.
+
+### 3.1. Prepare variables.
+
+First, all layers should be standardized before the regression aimed to simulate the expected abundance.
+
+```{r}
+#| label: Standardize layers
+#vegetation variables
+vegt_std <- scale(vegt_rst)
+vegt40_std <- scale(vegt_40)  
+vegt20_std <- scale(vegt_20)  
+
+#climate variables
+clim_std <- scale(clim_rst)
+clim40_std <- scale(clim_40)
+clim20_std <- scale(clim_40)
+```
+
+We create an error layer, with normal distribution, to add some variability not explained by the variables on the regression
+
+```{r}
+#| label: Create error layer
+r_error <- clim_std
+r_error[] <- rnorm(ncell(r_error), mean = 0, sd = 0.1)
+plot(r_error)
+```
+
+### 3.2. Create the species expected abundance layer.
+
+In this point, we are going to show two examples with opposite conditions, one more affected by the climate variable, and the other more affected by the vegetation variables. This produce that the first species presents a more aggregated pattern, and the second a more uniform pattern on the study area. **A huge variety of species can be created, varying the weights and signal of the variables on the regression (the effect of each variable)**.
+
+#### 3.2.1. Uniform pattern species.
+
+To obtain the species with **uniform distribution**, we consider a regression with lower possitive effect of **climate (weight 0.5)**, and higher effect of **vegetation (weight 1)**.
+
+```{r}
+#| label: Create Lambda Uniform pattern species
+U.LAM <- 0.5*clim_std + 1*vegt_std + r_error
+
+plot(U.LAM)
+```
+
+The problem with this layer, is that we obtained negative values. If we want to represent this value as expected abundance, we have to change to a range with only zero or positive values. Besides, if we imagine a real species on the field, we expect that change more drastically, with locations with zero individuals, and other places with maximum values, considering an species in equilibrium. And other interesting point, is determine which could be the maximum expected abundance (not necessary the maximum number of individuals present on that area, we will explain better what this means after). To obtain all this, we transform the normal distribution of this expected abundance to a logistic distribution. To reduce the number of cases with intermediate values, increase extreme values, obtain only zero or positive values, and determine a maximum of expected abundance.
+
+```{r}
+#| label: logistic distribution function
+logistic <- function(x, x0, L, k) {
+  l <- L/(1 +  exp(-k*(x-x0)))
+  return(l)
+}
+
+```
+
+The logistic function has 3 parameters. *x0* indicates the point of inflexion in the logistic function, *L* indicates the highest value in the logistic function, and *k* indicates the softness of the curve in the logistic function.
+
+For our examples, we determine the point of inflexion in 1 (for the original range of values of U.LAM), because we want more data close to absence of individuals, than close to maximum values (which is closer to trend in reality). We determine the maximum value in seven, considering that this is the maximum expected abundance per unit area (this value was chosen to ensure plausible values of abundance according to real data). And we determine the softness parameter in 3, with neutral shape of the logistic function.
+
+```{r}
+#| label: Transform logistic distribution Uniform pattern species
+U.LAM_lgt <- logistic(U.LAM, 1, 7, 3) 
+
+par(mfrow = c(1,1))
+plot(U.LAM[], U.LAM_lgt[]) 
+#visualize the relationship between original and transformed data
+```
+
+In this figure we can see the original values of the expected abundance in the x axis, and the transformed values in the y axis. We can confirm that these parameters let us dispose more values close to 0 than the maximum, the maximum values is delimited in 7, and there is a change of values that minimize intermediate values and increase extreme values.
+
+However, the logistic transformation has asymptotic limits, so we don't have neither, 0 and 7. To obtain this values (above all 0 values, that determine absence), we round the values.
+
+```{r}
+#| label: Round values Uniform pattern species
+U.LAM_lgt_R <- round(U.LAM_lgt, 2)
+
+plot(U.LAM[], U.LAM_lgt_R[], pch = 16, cex = 0.5) 
+#visualize the relationship between original and transformed data rounded
+```
+
+Now we have 0 and 7 values of expected abundances (in the worst and better places respectively).
+
+We can compare all the transformations from the original expected abundance values to the final transformation with the spatial maps.
+
+```{r}
+#| label: Compare maps Uniform pattern species
+par(mfrow = c(2,2))
+plot(U.LAM, main="Original expected abundance") 
+plot(U.LAM_lgt, main="Logistic expected abundance") 
+plot(U.LAM_lgt_R, main="Logistic expected abundance Rounded")
+```
+
+#### 3.2.2. Aggregated pattern species.
+
+To obtain the species with **aggregated distribution**, we consider a regression with higher positive effect of **climate (weight 1)**, and lower effect of **vegetation (weight 0.5)**.
+
+```{r}
+#| label: Create Lambda Aggregated pattern species
+G.LAM <- 1*clim_std + 0.5*vegt_std + r_error
+
+par(mfrow = c(1,1))
+plot(G.LAM)
+```
+
+As in Uniform species, we do the logistic transformation and round values to obtain zero and positive values, delimit the maximum to 7, and change more drastically from the minimum (absence) to the maximum values of expected abundance.
+
+```{r}
+#| label: Transform logistic distribution Aggregated pattern species
+G.LAM_lgt <- logistic(G.LAM, 1, 7, 3) 
+
+plot(G.LAM[], G.LAM_lgt[]) 
+#visualize the relationship between original and transformed data
+```
+
+```{r}
+#| label: Round values Aggregated pattern species
+G.LAM_lgt_R <- round(G.LAM_lgt, 2)
+
+plot(G.LAM[], G.LAM_lgt_R[], pch = 16, cex = 0.5) 
+#visualize the relationship between original and transformed data rounded
+```
+
+Now we have 0 and 7 values of expected abundances (in the worst and better places respectively).
+
+We can compare all the transformations from the original expected abundance values to the final transformation with the spatial maps.
+
+```{r}
+#| label: Compare maps Aggregated pattern species
+par(mfrow = c(2,2))
+plot(G.LAM, main="Original expected abundance") 
+plot(G.LAM_lgt, main="Logistic expected abundance") 
+plot(G.LAM_lgt_R, main="Logistic expected abundance Rounded")
+```
+
+And we can compare both species' final expected abundance values patterns.
+
+```{r}
+#| label: Final species expected abundance maps
+par(mfrow = c(1,2))
+plot(U.LAM_lgt_R, main="Uniform expected abundance") 
+plot(G.LAM_lgt_R, main="Aggregated expected abundance")
+```
+
+## 4. Obtain Data
+
+### 4.1 Generate individual presences
+
+Once we dispose of a spatial heterogeneous expected abundance (based on some environmental variables), we obtain presences based on this expected abundance values. For that, we create a function that generates points which represent individuals along the study area based on the expected abundance, employing the *inhomogeneous Poisson Point Process*. For this function, we have to consider the raster with the expected abundance values, and the minimum and maximum limit of the area extension as parameters.
+
+```{r}
+#| label: Function to generate individuals on space
+generatePoints <- function(x, min, max) {
+  w <- owin(c(min,max), c(min,max))
+  im.obj <- as.im(apply(matrix(x, max, max, byrow=TRUE), 2, rev), W=w)
+  occurs <- rpoispp(im.obj)
+  occurs
+}
+```
+
+As this function works better if the extension is higher than 0-1, we return the extension of the raster layer to the original values.
+
+```{r}
+#| label: Adaptation of raster layer extension
+# Create a reference raster with the extention desired
+r_base.200 <- rast(ncol=200, nrow=200, xmin=0, xmax=200, ymin=0, ymax=200, )
+#put this extension to the rasters saved (for both species)
+U.LAM_200 <- U.LAM_lgt_R
+U.LAM_200@pntr[["extent"]] <- r_base.200@pntr[["extent"]]
+G.LAM_200 <- G.LAM_lgt_R
+G.LAM_200@pntr[["extent"]] <- r_base.200@pntr[["extent"]]
+```
+
+#### 4.1.1 Uniform pattern species.
+
+```{r}
+#| label: Generate individuals Uniform pattern species
+#Create the dots (individuals in space)
+U.occurs <- generatePoints(U.LAM_200, 0, 200)
+
+#Visualize the individuals on the maps
+par(mfrow = c(1,1))
+plot(U.LAM_lgt_R)
+points(U.occurs, cex = 0.3, pch=19, col='red')
+U.occurs
+```
+
+With this, we obtain `r U.occurs[["n"]]` individuals distributed along the space based on environmental conditions (the expected abundance layer).
+
+#### 4.1.2 Aggregated pattern species.
+
+```{r}
+#| label: Generate individuals Aggregated pattern species
+#Create the dots (individuals in space)
+G.occurs <- generatePoints(G.LAM_200, 0, 200)
+
+#Visualize the individuals on the maps
+par(mfrow = c(1,1))
+plot(G.LAM_lgt_R)
+points(G.occurs, cex = 0.3, pch=19, col='red')
+G.occurs
+```
+
+With this, we obtain `r G.occurs[["n"]]` individuals distributed along the space based on environmental conditions (the expected abundance layer).
+
+## 5. Sampling the Study Area.
+
+### 5.1 Obtain abundance values.
+
+#### 5.1.2. Uniform pattern species.
+
+```{r}
+#| label: Obtain abundance raster layer Uniform pattern species
+#Obtain a raster layer with the value of the true abundance of animals per cell 
+U.occus <- vect(data.frame(x = U.occurs$x, y = U.occurs$y), 
+              geom=c("x", "y")) #pass the occurrences to dataframe and spatvector
+U.occurs_r <- rasterize(U.occus, U.LAM_lgt_R, fun = sum)
+plot(U.occurs_r)
+```
+
+This layer presents the true abundance values present of the uniform species on the simulated area.
+
+#### 5.1.2. Aggregated pattern species.
+
+```{r}
+#| label: Obtain abundance raster layer Aggregated pattern species
+#Obtain a raster layer with the value of the true abundance of animals per cell 
+G.occus <- vect(data.frame(x = G.occurs$x, y = G.occurs$y), 
+              geom=c("x", "y")) #pass the occurrences to dataframe and spatvector
+G.occurs_r <- rasterize(G.occus, G.LAM_lgt_R, fun = sum)
+plot(G.occurs_r)
+```
+
+This layer presents the true abundance values present of the aggregated species on the simulated area.
+
+### 5.2 Determine a random grid for sampling
+
+In real world usually we don't have all the data, we sample part of the total. Because of that, here we simulate a sampling process, choosing randomly a specific number of points along the simulated area. For that, we create a function that distribute available points uniformly in all the study area (a grid), and select randomly the number of point that we indicate. The parameters of this model determine the number of sampling points to select (*n*), the range of x and y coordinates to distribute the sampling points (*xrange*, *yrange*, respectively), and the space between the available points, equivalent to the minimum distance between sampling points (*cellsize*, the cell size of the grid).
+
+```{r}
+#| label: Function to sample the study area
+rGridSampling <- function(n, xrange, yrange, cellsize) {
+  s <- cellsize/2
+  grd <- expand.grid(x=seq(xrange[1]+s, xrange[2]-s, s),
+                     y=seq(yrange[1]+s, yrange[2]-s, s))
+  i <- sample(nrow(grd),n)
+  grd[i,]
+}
+
+```
+
+In these examples, we sample 400 points, on our area of 200x200 units, with a minimum distance between points of 5 units. Moreover, we also simplified the function to present the original grid.
+
+```{r}
+#| label: Create grid sampling
+#In this case we select a total of 400 samples, with a grid of 200 x 200 units
+#and with a distance between points of 5 units (cellsize)
+sam_units <- rGridSampling(n= 400, xrange = c(0,200), yrange = c(0,200), cellsize = 5)
+
+#Visualize the samples selected
+plot(U.LAM_lgt_R)
+points(sam_units, col='red', pch=16, cex=0.5)
+
+#This is optional, but we can obtain the grid structure used to select the 
+#sampling points
+  #Create a funtion to generate grids
+rGrid <- function(xrange, yrange, cellsize) {
+  s <- cellsize/2
+  grd <- expand.grid(x=seq(xrange[1]+s, xrange[2]-s, s),
+                     y=seq(yrange[1]+s, yrange[2]-s, s))
+}
+
+  #Create our grid employed on the loc sampling selection
+sam_grid <- rGrid(xrange = c(0,200), yrange = c(0,200), cellsize = 5)
+
+#Visualize the grid and the sampling units selected
+plot(U.LAM_lgt_R)
+points(sam_grid, col='blue', pch=16, cex=0.3)
+points(sam_units, col='red', pch=16, cex=0.5)
+```
+
+In this figure, blue dots represent available original points to sample (the grid), red dots represent the 400 sample units randomly selected by the function.
+
+### 5.3 Sample abundance values
+
+Once we know the area of sampling, extract the abundance values of those areas.
+
+#### 5.3.1. Uniform pattern species.
+
+```{r}
+#| label: Obtain abundance values Uniform species
+#Extract the value of abundance of each sampled unit from the abundance layer
+U.ABN_samp <- terra::extract(U.occurs_r, sam_units, fun=sum, df=TRUE)
+names(U.ABN_samp) <- c("SampleID", "Abundance")
+U.ABN_samp[is.na(U.ABN_samp)] <- 0 #change NAs values per 0
+head(U.ABN_samp, 10)
+```
+
+#### 5.3.1. Aggregated pattern species.
+
+```{r}
+#| label: Obtain abundance values Aggregated species
+#Extract the value of abundance of each sampled unit from the abundance layer
+G.ABN_samp <- terra::extract(G.occurs_r, sam_units, fun=sum, df=TRUE)
+names(G.ABN_samp) <- c("SampleID", "Abundance")
+G.ABN_samp[is.na(G.ABN_samp)] <- 0 #change NAs values per 0
+head(G.ABN_samp, 10)
+```
+
+### 5.4 Transform abundance into presence/absence data (detection/non-detection)
+
+Not always we are interested in obtaining counts, we could prefer or need **presence/absence data, or detections considering imperfect detection**. In this section, we transform the abundance values (number of animals present per sampled unit) obtained in the previous sections to detections (detected/not-detected binomial value per sampled unit), considering an imperfect detection per individual, so higher the number of individuals per sampled unit, higher the probability that detect at least one individual on the sampled unit. For this example, we will use the abundance values obtained on the *5.3 section*. To do this transformation, we create a function, that considers the abundance values (*abun*), and the individual probability of detection (*ipd*), returning a data frame that indicates if any of the individuals of each cell have been detected.
+
+```{r}
+#| label: Function to transform to presence values
+i_occuSample <- function(abun, ipd) {
+  occu <- as.integer(rbinom(nrow(abun), abun[,2], ipd) > 0)
+  
+  #save all in a data.frame
+  df <- data.frame(cbind(sampleID = abun[,1], abundance = abun[,2], 
+                         occurrences = occu))
+  
+  return(df)
+}
+```
+
+#### 5.4.1. Uniform pattern species.
+
+```{r}
+#| label: Transform to presence values Uniform species
+abun <- U.ABN_samp #Abundance values data set used as initial data frame
+ipd <- 0.5 #Probability of individual detection
+
+U.sample_prove <- i_occuSample(abun, ipd)
+
+#see the number of sampling units without and with detections 
+#(0 = no-detections, 1 = detections)
+table(U.sample_prove$occurrences)
+```
+
+In this case, from 400 samples, there are detections in `r sum(U.sample_prove$occurrences == 1)`.
+
+Once we have these transformation done per sampled unit, we save this information in a data frame with the coordinates, the survey ID (the sampled unit), the abundance value (count of individual presents on the sampled unit), and the occurrence values (binomial value of detection or not-detection of the species on the sampled unit).
+
+```{r}
+#| label: Abundance-detections dataframe Uniform species
+U.sampling_units <- data.frame(cbind(x = sam_units$x,
+                                   y = sam_units$y,
+                                   sampleID = U.sample_prove$sampleID,
+                                   abundance = U.sample_prove$abundance, 
+                                   occurrences = U.sample_prove$occurrences))
+head(U.sampling_units, 10)
+```
+
+Now, we can visualize each type of data collected showing the total area of study. To compare easily the differences between them.
+
+First, we visualize the abundance values
+
+```{r}
+#| label: Visualize abundance values Uniform species
+# Configuration of the plotting window
+par(mar = c(5, 5, 4, 6))  # Adjust margins
+plot(U.LAM_lgt_R, 
+     main = "Spatial Distribution of Abundance", 
+     xlab = "Longitude", 
+     ylab = "Latitude",
+     legend = FALSE)  # Background raster
+
+# Red points for real locations
+points(U.occurs, col = "red", pch = 16, cex = 0.05)
+
+# Create color palette (white to dark blue)
+pal <- colorRampPalette(c("white", "darkblue"))
+
+# Adjust point sizes based on abundance
+point_sizes <- sqrt(U.sampling_units$abundance + 1) * 0.5 # Scale size proportionally
+
+# Assign colors based on abundance values
+points(U.sampling_units, 
+       col = "black", 
+       bg = pal(100)[cut(U.sampling_units$abundance, breaks = 100, labels = FALSE)], 
+       cex = point_sizes, 
+       pch = 21)
+
+# Add color bar for abundance
+colorTable <- designer.colors(100, c("white", "darkblue"))
+image.plot(add = TRUE, legend.only = TRUE, 
+           zlim = range(U.sampling_units$abundance, na.rm = TRUE),
+           col = colorTable, 
+           legend.args = list(text = "Abundance values", 
+                              col = "black", cex = 1.5, side = 4, line = 2))
+```
+
+Next, we visualize the detection, non-detection values
+
+```{r}
+#| label: Visualize detection values Uniform species
+par(mar = c(5, 5, 4, 6))
+plot(U.LAM_lgt_R, legend = FALSE)
+points(U.occurs, col = "red", pch = 16, cex = 0.05)
+
+# Define specific colors for categorical values (detected not-detected)
+category_colors <- c("blue", "green")  # blue for 0, green for 1
+names(category_colors) <- c(0, 1)  # Associate colors with occurrences values
+
+# Assign colors based on occurrence values
+points(U.sampling_units, col = "black", 
+       bg = category_colors[as.character(U.sampling_units$occurrences)], 
+       pch = 21)
+
+# Add the legend with categoric values
+legend("topright", inset = c(-0.05, 0.35), 
+       legend = c("0", "1"), 
+       col = "black", pt.bg = category_colors, 
+       cex = 1.5, bty = "n", pch = 21, xpd = TRUE)
+
+mtext('Detection Values', cex = 1.5, side = 4, line = 0.5)
+```
+
+#### 5.3.1. Aggregated pattern species.
+
+```{r}
+#| label: Transform to presence values Aggregated species
+abun <- G.ABN_samp #Abundance values dataset used as initial dataframe
+ipd <- 0.5 #Probability of individual detection
+
+G.sample_prove <- i_occuSample(abun, ipd)
+
+#see the number of sampling units without and with detections 
+#(0 = no-detections, 1 = detections)
+table(G.sample_prove$occurrences)
+```
+
+In this case, from 400 samples, there are detections in `r sum(G.sample_prove$occurrences == 1)`.
+
+Once we have these transformation done per sampled unit, we save this information in a data frame with the coordinates, the survey ID (the sampled unit), the abundance value (count of individual presents on the sampled unit), and the occurrence values (binomial value of detection or not-detection of the species on the sampled unit).
+
+```{r}
+#| label: Abundance-detections dataframe Aggregated species
+G.sampling_units <- data.frame(cbind(x = sam_units$x,
+                                   y = sam_units$y,
+                                   sampleID = G.sample_prove$sampleID,
+                                   abundance = G.sample_prove$abundance, 
+                                   occurrences = G.sample_prove$occurrences))
+head(G.sampling_units, 10)
+```
+
+Now, we can visualize each type of data collected showing the total area of study. To compare easily the differences between them.
+
+First, we visualize the abundance values
+
+```{r}
+#| label: Visualize abundance values Aggregated species
+# Configuration of the plotting window
+par(mar = c(5, 5, 4, 6))  # Adjust margins
+plot(G.LAM_lgt_R, 
+     main = "Spatial Distribution of Abundance", 
+     xlab = "Longitude", 
+     ylab = "Latitude", 
+     legend = FALSE)  # Background raster
+
+# Red points for real locations
+points(G.occurs, col = "red", pch = 16, cex = 0.05)
+
+# Create color palette (white to dark blue)
+pal <- colorRampPalette(c("white", "darkblue"))
+
+# Adjust point sizes based on abundance
+point_sizes <- sqrt(G.sampling_units$abundance + 1) * 0.5 # Scale size proportionally
+
+# Assign colors based on abundance values
+points(G.sampling_units, 
+       col = "black", 
+       bg = pal(100)[cut(G.sampling_units$abundance, breaks = 100, labels = FALSE)], 
+       cex = point_sizes, 
+       pch = 21)
+
+# Add color bar for abundance
+colorTable <- designer.colors(100, c("white", "darkblue"))
+image.plot(add = TRUE, legend.only = TRUE, 
+           zlim = range(G.sampling_units$abundance, na.rm = TRUE),
+           col = colorTable, 
+           legend.args = list(text = "Abundance values", 
+                              col = "black", cex = 1.5, side = 4, line = 2))
+```
+
+Next, we visualize the detection, non-detection values
+
+```{r}
+#| label: Visualize detection values Aggregated species
+par(mar = c(5, 5, 4, 6))
+plot(G.LAM_lgt_R, legend = FALSE)
+points(G.occurs, col = "red", pch = 16, cex = 0.05)
+
+# Define specific colors for categorical values (detected not-detected)
+category_colors <- c("blue", "green")  # blue for 0, green for 1
+names(category_colors) <- c(0, 1)  # Associate colors with occurrences values
+
+# Assign colors based on occurrence values
+points(G.sampling_units, col = "black", 
+       bg = category_colors[as.character(G.sampling_units$occurrences)], 
+       pch = 21)
+
+# Add the legend with categoric values
+legend("topright", inset = c(-0.05, 0.35), 
+       legend = c("0", "1"), 
+       col = "black", pt.bg = category_colors, 
+       cex = 1.5, bty = "n", pch = 21, xpd = TRUE)
+
+mtext('Detection Values', cex = 1.5, side = 4, line = 0.5)
+```
+
+## 6. Save datasets
+
+Before running the following code, make sure to set your working directory using `setwd()`
+
+```{r}
+#| label: Define directory to save
+#| include: false
+setwd("D:/OneDrive - Universidad de Castilla-La Mancha/DOCTORADO UCLM/COLABORACIONES/PEDRO-TELLE/publicación/Ecography/revisión")
+```
+
+### 6.1 Save Sampled data
+
+Data base with all the information obtained in the samples (coordinates, occurrence values (detections), abundance values, sample ID)
+
+```{r}
+#| label: Save obtained data
+#Create a folder for this layer
+base <- getwd()
+savepath <- file.path(base, "Data_created")
+if (!dir.exists(savepath)) {
+  dir.create(savepath, recursive=TRUE)
+  print("Creating directory")
+} else {
+  print("Directory already exists. Overwriting.")
+}
+
+# Uniform pattern species
+write.table(U.sampling_units, 'Data_created/U.sampling_units.csv',
+            row.names = FALSE, sep = ",")
+
+# Aggregated pattern species
+write.table(G.sampling_units, 'Data_created/G.sampling_units.csv',
+            row.names = FALSE, sep = ",")
+```
+
+But could be interesting save a database with only detections, because this type of format is used in some methodologies such as Maxent.
+
+```{r}
+#| label: Save only-detection data
+
+# Uniform pattern species
+final_data <- U.sampling_units[U.sampling_units$occurrences == 1,]
+final_data <- data.frame(final_data[,c(1,2)])
+h <- data.frame(ID = cbind(c(rep.int("Virtual_Species", nrow(final_data)))))
+final_data <- list(ID=h, x=final_data$x, y=final_data$y)
+write.table(final_data, "Data_created/U.occ_virtualspecies.csv",
+            row.names = FALSE, sep = ",")
+
+# Aggregated pattern species
+final_data <- G.sampling_units[G.sampling_units$occurrences == 1,]
+final_data <- data.frame(final_data[,c(1,2)])
+h <- data.frame(ID = cbind(c(rep.int("Virtual_Species", nrow(final_data)))))
+final_data <- list(ID=h, x=final_data$x, y=final_data$y)
+write.table(final_data, "Data_created/G.occ_virtualspecies.csv",
+            row.names = FALSE, sep = ",")
+
+```
+
+### 6.2 Save Expected abundance
+
+We can save the expected abundance layer too, which has been used to determine the distribution of the individuals
+
+```{r}
+#| label: Save expected abundance
+
+# Uniform pattern species
+terra::writeRaster(U.LAM_lgt_R, "Data_created/U.Expected_abundance.asc",
+                   NAflag = -9999, overwrite=TRUE)
+
+# Aggregated pattern species
+terra::writeRaster(G.LAM_lgt_R, "Data_created/G.Expected_abundance.asc",
+                   NAflag = -9999, overwrite=TRUE)
+```
+
+### 6.4 Save Vegetation layers
+
+The original vegetation raster layer
+
+```{r}
+#| label: Save vegetation layer
+#Create a folder for this layer
+base <- getwd()
+savepath <- file.path(base, "Data_created/VEG")
+if (!dir.exists(savepath)) {
+  dir.create(savepath, recursive=TRUE)
+  print("Creating directory")
+} else {
+  print("Directory already exists. Overwriting.")
+}
+
+#Save the VEG raster with format ASCII
+writeRaster(vegt_std, "Data_created/VEG/VEGETATION.asc", overwrite=TRUE)
+```
+
+The 20 resolution vegetation raster layer
+
+```{r}
+#| label: Save 20 vegetation layer
+#Create a folder for this layer
+base <- getwd()
+savepath <- file.path(base, "Data_created/20VEG")
+if (!dir.exists(savepath)) {
+  dir.create(savepath, recursive=TRUE)
+  print("Creating directory")
+} else {
+  print("Directory already exists. Overwriting.")
+}
+
+#Save the VEG raster with format ASCII
+writeRaster(vegt20_std, "Data_created/20VEG/20VEGETATION.asc", overwrite=TRUE)
+```
+
+The 40 resolution vegetation raster layer
+
+```{r}
+#| label: Save 40 vegetation layer
+#Create a folder for this layer
+base <- getwd()
+savepath <- file.path(base, "Data_created/40VEG")
+if (!dir.exists(savepath)) {
+  dir.create(savepath, recursive=TRUE)
+  print("Creating directory")
+} else {
+  print("Directory already exists. Overwriting.")
+}
+
+#Save the VEG raster with format ASCII
+writeRaster(vegt40_std, "Data_created/40VEG/40VEGETATION.asc", overwrite=TRUE)
+```
+
+### 6.5 Save climate variable
+
+```{r}
+#| label: Save original climate layer
+#Create a folder for this layer
+base <- getwd()
+savepath <- file.path(base, "Data_created/CLIM")
+if (!dir.exists(savepath)) {
+  dir.create(savepath, recursive=TRUE)
+  print("Creating directory")
+} else {
+  print("Directory already exists. Overwriting.")
+}
+
+#Save the VEG raster with format ASCII
+writeRaster(clim_std, "Data_created/CLIM/CLIMATE.asc", overwrite=TRUE)
+```
+
+The 20 resolution climate raster layer
+
+```{r}
+#| label: Save 20 climate layer
+#Create a folder for this layer
+base <- getwd()
+savepath <- file.path(base, "Data_created/20CLIM")
+if (!dir.exists(savepath)) {
+  dir.create(savepath, recursive=TRUE)
+  print("Creating directory")
+} else {
+  print("Directory already exists. Overwriting.")
+}
+
+#Save the VEG raster with format ASCII
+writeRaster(clim20_std, "Data_created/20CLIM/20CLIMATE.asc", overwrite=TRUE)
+```
+
+The 40 resolution climate raster layer
+
+```{r}
+#| label: Save 40 climate layer
+#Create a folder for this layer
+base <- getwd()
+savepath <- file.path(base, "Data_created/40CLIM")
+if (!dir.exists(savepath)) {
+  dir.create(savepath, recursive=TRUE)
+  print("Creating directory")
+} else {
+  print("Directory already exists. Overwriting.")
+}
+
+#Save the VEG raster with format ASCII
+writeRaster(clim40_std, "Data_created/40CLIM/40CLIMATE.asc", overwrite=TRUE)
+```
+
+# Session info
+
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+
+Session Information
+
+</button>
+
+:::: {#collapseOne .accordion-collapse .collapse}
+<div>
+
+```{r}
+sessionInfo()
+```
+
+</div>
+::::
