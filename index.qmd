@@ -8,8 +8,27 @@ An R package with a set of tools for simulating ecological environments and gene
 
 ```r
 # install.packages("devtools")
-devtools::install_github("ptarroso/ecoforge")
+install_github("https://github.com/NatureProtectionDFF/Ecoforge-R-package")
+
+library(ecoforge)
+ls("package:ecoforge")
 ```
+
+## Functions descriptions
+
+- [abundance2pres](reference/abundance2pres.html)
+- [countOcc](reference/countOcc.html)
+- [generateClim](reference/generateClim.html)
+- [generateMonthlyPrec](reference/generateMonthlyPrec.html)
+- [generateMonthlyTemp](reference/generateMonthlyTemp.html)
+- [generatePoints](reference/generatePoints.html)
+- [generateVar](reference/generateVar.html)
+- [logistic](reference/logistic.html)
+- [pointSample](reference/pointSample.html)
+- [randomSamp](reference/randomSamp.html)
+- [scale01](reference/scale01.html)
+- [transectSample](reference/transectSample.html)
+- [uniformSamp](reference/uniformSamp.html)
 
 ## Available vignettes
 

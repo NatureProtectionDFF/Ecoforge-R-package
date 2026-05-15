@@ -14,7 +14,17 @@
     "href": "index.html#instalation",
     "title": "EcoForge R package",
     "section": "Instalation",
-    "text": "Instalation\n# install.packages(\"devtools\")\ndevtools::install_github(\"ptarroso/ecoforge\")",
+    "text": "Instalation\n# install.packages(\"devtools\")\ninstall_github(\"https://github.com/NatureProtectionDFF/Ecoforge-R-package\")\n\nlibrary(ecoforge)\nls(\"package:ecoforge\")",
+    "crumbs": [
+      "Schedule"
+    ]
+  },
+  {
+    "objectID": "index.html#functions-descriptions",
+    "href": "index.html#functions-descriptions",
+    "title": "EcoForge R package",
+    "section": "Functions descriptions",
+    "text": "Functions descriptions\n\nabundance2pres\ncountOcc\ngenerateClim\ngenerateMonthlyPrec\ngenerateMonthlyTemp\ngeneratePoints\ngenerateVar\nlogistic\npointSample\nrandomSamp\nscale01\ntransectSample\nuniformSamp",
     "crumbs": [
       "Schedule"
     ]

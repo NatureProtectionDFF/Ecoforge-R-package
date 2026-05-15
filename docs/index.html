@@ -276,6 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#instalation" id="toc-instalation" class="nav-link active" data-scroll-target="#instalation">Instalation</a></li>
+  <li><a href="#functions-descriptions" id="toc-functions-descriptions" class="nav-link" data-scroll-target="#functions-descriptions">Functions descriptions</a></li>
   <li><a href="#available-vignettes" id="toc-available-vignettes" class="nav-link" data-scroll-target="#available-vignettes">Available vignettes</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/NatureProtectionDFF/Ecoforge-R-package/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/NatureProtectionDFF/Ecoforge-R-package/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -306,7 +307,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="instalation" class="level2">
 <h2 class="anchored" data-anchor-id="instalation">Instalation</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ptarroso/ecoforge"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"https://github.com/NatureProtectionDFF/Ecoforge-R-package"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecoforge)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:ecoforge"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="functions-descriptions" class="level2">
+<h2 class="anchored" data-anchor-id="functions-descriptions">Functions descriptions</h2>
+<ul>
+<li><a href="reference/abundance2pres.html">abundance2pres</a></li>
+<li><a href="reference/countOcc.html">countOcc</a></li>
+<li><a href="reference/generateClim.html">generateClim</a></li>
+<li><a href="reference/generateMonthlyPrec.html">generateMonthlyPrec</a></li>
+<li><a href="reference/generateMonthlyTemp.html">generateMonthlyTemp</a></li>
+<li><a href="reference/generatePoints.html">generatePoints</a></li>
+<li><a href="reference/generateVar.html">generateVar</a></li>
+<li><a href="reference/logistic.html">logistic</a></li>
+<li><a href="reference/pointSample.html">pointSample</a></li>
+<li><a href="reference/randomSamp.html">randomSamp</a></li>
+<li><a href="reference/scale01.html">scale01</a></li>
+<li><a href="reference/transectSample.html">transectSample</a></li>
+<li><a href="reference/uniformSamp.html">uniformSamp</a></li>
+</ul>
 </section>
 <section id="available-vignettes" class="level2">
 <h2 class="anchored" data-anchor-id="available-vignettes">Available vignettes</h2>
@@ -791,13 +813,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ptarroso/ecoforge"</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Available vignettes</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Ferrer-Ferrando et al. Ecography</span><span class="co">](vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html)</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Package Example</span><span class="co">](vignettes/Package_Example/QUARTO_ECOFORGE_HTML_PDF.html)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"https://github.com/NatureProtectionDFF/Ecoforge-R-package"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecoforge)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:ecoforge"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Functions descriptions</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">abundance2pres</span><span class="co">](reference/abundance2pres.html)</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">countOcc</span><span class="co">](reference/countOcc.html)</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">generateClim</span><span class="co">](reference/generateClim.html)</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">generateMonthlyPrec</span><span class="co">](reference/generateMonthlyPrec.html)</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">generateMonthlyTemp</span><span class="co">](reference/generateMonthlyTemp.html)</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">generatePoints</span><span class="co">](reference/generatePoints.html)</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">generateVar</span><span class="co">](reference/generateVar.html)</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">logistic</span><span class="co">](reference/logistic.html)</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">pointSample</span><span class="co">](reference/pointSample.html)</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">randomSamp</span><span class="co">](reference/randomSamp.html)</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">scale01</span><span class="co">](reference/scale01.html)</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">transectSample</span><span class="co">](reference/transectSample.html)</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">uniformSamp</span><span class="co">](reference/uniformSamp.html)</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Available vignettes</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Ferrer-Ferrando et al. Ecography</span><span class="co">](vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html)</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Package Example</span><span class="co">](vignettes/Package_Example/QUARTO_ECOFORGE_HTML_PDF.html)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

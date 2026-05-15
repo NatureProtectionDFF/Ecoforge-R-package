@@ -6,6 +6,8 @@ project:
   resources:
     - "vignettes/Ferrer-Ferrando_etal_Ecography/"
     - "vignettes/Package_Example/"
+    - "images/"
+    - "docs/reference/"
 
 website:
   page-navigation: true

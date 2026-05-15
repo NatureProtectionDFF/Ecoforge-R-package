@@ -67,3 +67,5 @@ roxygen2::roxygenise()
 
 file.exists("NAMESPACE")
 readLines("NAMESPACE")
+
+unlink("docs/index.html")
