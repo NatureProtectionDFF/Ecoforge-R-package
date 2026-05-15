@@ -8,20 +8,42 @@ project:
     - "vignettes/Package_Example/"
 
 website:
+  page-navigation: true
   title: "EcoForge R package"
-  navbar:
-    left:
+  site-url: "https://natureprotectiondff.github.io/Ecoforge-R-package"
+  repo-url: https://github.com/NatureProtectionDFF/Ecoforge-R-package
+  repo-actions: [edit, issue]
+  
+  page-footer:
+    right: "Built with [Quarto](https://quarto.org/)"
+    left: "&copy; GPL-3.0 License, EcoForge, 2025"
+
+    sidebar:
+    logo: "images/Logo.png"
+    pinned: true
+    align: center
+    tools:
+      - icon: github
+        href: https://github.com/NatureProtectionDFF/Ecoforge-R-package
+        text: "GitHub repository"
+      - icon: globe
+        href: https://sites.google.com/view/davidferrer/english?authuser=0
+        text: "David Ferrer website"
+      - icon: journal
+        href: https://nsojournals.onlinelibrary.wiley.com/doi/10.1111/ecog.07766?af=R
+        text: "Manuscript with example use"
+    style: "docked"
+    search: true
+    collapse-level: 1
+    contents:
       - href: index.qmd
-        text: Inicio
-      - text: Viñetas
-        menu:
+        text: Schedule
+      - section: Vignettes
+        contents:
           - href: vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html
             text: "Ferrer-Ferrando et al. Ecography"
           - href: vignettes/Package_Example/QUARTO_ECOFORGE_HTML_PDF.html
             text: "Package Example"
-    right:
-      - icon: github
-        href: https://github.com/NatureProtectionDFF/Ecoforge-R-package
 
 format:
   html:
@@ -30,3 +52,5 @@ format:
     toc-depth: 3
     code-fold: true
     code-tools: true
+    code-copy: true
+    code-overflow: wrap
