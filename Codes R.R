@@ -1,0 +1,1 @@
+unlink("docs", recursive = TRUE)
