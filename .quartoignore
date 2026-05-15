@@ -1,0 +1,4 @@
+vignettes/**/*.qmd
+vignettes/**/*.pdf
+vignettes/**/Read.me
+vignettes/**/*_files/

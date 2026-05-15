@@ -1,0 +1,17 @@
+---
+title: "EcoForge R package"
+---
+
+An R package with a set of tools for simulating ecological environments and generate species' counts or presence/absence data for ecological analyses.
+
+## Instalation
+
+```r
+# install.packages("devtools")
+devtools::install_github("ptarroso/ecoforge")
+```
+
+## Available vignettes
+
+- [Ferrer-Ferrando et al. Ecography](vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html)
+- [Package Example](vignettes/Package_Example/QUARTO_ECOFORGE_HTML_PDF.html)

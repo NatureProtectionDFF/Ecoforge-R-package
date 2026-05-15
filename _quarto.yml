@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs   # GitHub Pages leerá esta carpeta
+  render:
+    - "index.qmd"
+  resources:
+    - "vignettes/Ferrer-Ferrando_etal_Ecography/"
+    - "vignettes/Package_Example/"
+
+website:
+  title: "EcoForge R package"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Inicio
+      - text: Viñetas
+        menu:
+          - href: vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html
+            text: "Ferrer-Ferrando et al. Ecography"
+          - href: vignettes/Package_Example/QUARTO_ECOFORGE_HTML_PDF.html
+            text: "Package Example"
+    right:
+      - icon: github
+        href: https://github.com/NatureProtectionDFF/Ecoforge-R-package
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
