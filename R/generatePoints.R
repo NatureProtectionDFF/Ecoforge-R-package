@@ -1,3 +1,4 @@
+#' @export
 generatePoints <- 
 function(x, npoints) {
   m <- apply(matrix(x, nrow(x), ncol(x), byrow = TRUE), 2, rev)

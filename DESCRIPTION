@@ -1,3 +1,4 @@
+Encoding: UTF-8
 Package: ecoforge
 Version: 0.2
 Date: 2024-09-09
@@ -12,3 +13,4 @@ VignetteBuilder: knitr
 License: GPL (>= 2)
 URL: TO_BE_FILLED
 BugReports: TO_BE_FILLED
+Config/roxygen2/version: 8.0.0

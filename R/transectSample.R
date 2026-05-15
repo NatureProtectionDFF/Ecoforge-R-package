@@ -1,3 +1,4 @@
+#' @export
 transectSample <-
 function(sites, occ, tlen, drng, angle="random") {
     hl <- tlen/2

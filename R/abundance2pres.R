@@ -1,3 +1,4 @@
+#' @export
 abundance2pres <- function(abun, ipd) {
   occu <- as.integer(rbinom(nrow(abun), abun[, 2], ipd) > 0)
 

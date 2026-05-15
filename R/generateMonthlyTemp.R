@@ -1,3 +1,4 @@
+#' @export
 generateMonthlyTemp <-
 function(x, daily_amp, annual_rng, err_sdev=1,
                                 verbose=TRUE) {

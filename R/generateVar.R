@@ -1,3 +1,4 @@
+#' @export
 generateVar <- 
 function(nrow, ncol, Vmean, Vsd, Vrange) {
     grd <- expand.grid(x = 1:ncol, y = 1:nrow)

@@ -1,3 +1,4 @@
+#' @export
 generateClim <-
 function(nrow=101, ncol=101, Tmean=15, Tsd=4, Trange=45, 
                          Tamp_max=10, Tamp_min=1, Tar_max=10, Tar_min=5,

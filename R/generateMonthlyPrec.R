@@ -1,3 +1,4 @@
+#' @export
 generateMonthlyPrec <-
 function(x, annual_var, err_sdev=0.1) {
     h <- 1:12/12*2*pi

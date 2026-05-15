@@ -1,3 +1,4 @@
+#' @export
 pointSample <- function(sites, occ, radius) {
   d <- matrix(NA, nrow(occ), nrow(sites))
   for (i in 1:nrow(sites)) {
