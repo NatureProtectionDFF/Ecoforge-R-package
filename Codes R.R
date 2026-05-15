@@ -21,6 +21,7 @@ pkgdown::init_site()
 Sys.setenv(R_MAX_PATH = 500)
 
 pkgdown::build_reference()
+list.files("docs/reference/")
 
 #Cargar el paquete que permita crear un archivo NAMESPACE para poder descargar las funciones
 # Lista todos los archivos .R
@@ -69,3 +70,22 @@ file.exists("NAMESPACE")
 readLines("NAMESPACE")
 
 unlink("docs/index.html")
+
+#Pero hay un detalle importante: cada vez que hagas quarto render 
+#después de esto, Quarto no borrará la carpeta docs/reference/ 
+#porque no la genera él, la genera pkgdown. Así que el flujo de 
+#trabajo correcto de ahora en adelante será:
+# 1. Primero Quarto genera la web [Codigo en Terminal]
+quarto render
+
+# 2. Luego pkgdown genera las páginas de funciones
+library(pkgdown)
+library(quarto)
+
+pkgdown::init_site()
+pkgdown::build_reference() # [Codigo en R]
+
+# 3. Subir todo [Codigo en Terminal]
+git add .
+git commit -m "Update website"
+git push
