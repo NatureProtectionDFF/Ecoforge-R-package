@@ -9,3 +9,5 @@ library(devtools)
 install_github("https://github.com/ptarroso/ecoforge")
 library(ecoforge)
 ```
+
+Website with all the information related with this package and the vignettes available here: https://natureprotectiondff.github.io/Ecoforge-R-package/
