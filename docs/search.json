@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "EcoForge R package",
+    "title": "Ecoforge R package",
     "section": "",
     "text": "An R package with a set of tools for simulating ecological environments and generate species’ counts or presence/absence data for ecological analyses.",
     "crumbs": [
@@ -12,7 +12,7 @@
   {
     "objectID": "index.html#instalation",
     "href": "index.html#instalation",
-    "title": "EcoForge R package",
+    "title": "Ecoforge R package",
     "section": "Instalation",
     "text": "Instalation\n# install.packages(\"devtools\")\ninstall_github(\"https://github.com/NatureProtectionDFF/Ecoforge-R-package\")\n\nlibrary(ecoforge)\nls(\"package:ecoforge\")",
     "crumbs": [
@@ -22,7 +22,7 @@
   {
     "objectID": "index.html#functions-descriptions",
     "href": "index.html#functions-descriptions",
-    "title": "EcoForge R package",
+    "title": "Ecoforge R package",
     "section": "Functions descriptions",
     "text": "Functions descriptions\n\nabundance2pres\ncountOcc\ngenerateClim\ngenerateMonthlyPrec\ngenerateMonthlyTemp\ngeneratePoints\ngenerateVar\nlogistic\npointSample\nrandomSamp\nscale01\ntransectSample\nuniformSamp",
     "crumbs": [
@@ -32,7 +32,7 @@
   {
     "objectID": "index.html#available-vignettes",
     "href": "index.html#available-vignettes",
-    "title": "EcoForge R package",
+    "title": "Ecoforge R package",
     "section": "Available vignettes",
     "text": "Available vignettes\n\nFerrer-Ferrando et al. Ecography\nPackage Example",
     "crumbs": [
