@@ -18,7 +18,7 @@ website:
     right: "Built with [Quarto](https://quarto.org/)"
     left: "&copy; GPL-3.0 License, EcoForge, 2025"
 
-    sidebar:
+  sidebar:
     logo: "images/Logo.png"
     pinned: true
     align: center
