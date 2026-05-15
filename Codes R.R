@@ -6,10 +6,21 @@ library(devtools)
 install_github("https://github.com/NatureProtectionDFF/Ecoforge-R-package")
 library(ecoforge)
 
+library(ecoforge)
+ls("package:ecoforge")
+
 #Instalar paquete que permite visualizar las funciones creadas y su descripción en la web
 install.packages("pkgdown")
-library(pkg)
-pkgdown::build_site()
+library(pkgdown)
+
+install.packages("quarto")
+library(quarto)
+pkgdown::init_site()
+
+# Activa rutas largas en R
+Sys.setenv(R_MAX_PATH = 500)
+
+pkgdown::build_reference()
 
 #Cargar el paquete que permita crear un archivo NAMESPACE para poder descargar las funciones
 # Lista todos los archivos .R
@@ -21,3 +32,38 @@ for (f in archivos) {
   funcion <- lineas[grep("<- function", lineas)]
   cat(f, ":", funcion[1], "\n")
 }
+
+archivos_na <- c("R/countOcc.R", "R/generateClim.R", "R/generateMonthlyPrec.R",
+                 "R/generateMonthlyTemp.R", "R/generatePoints.R", "R/generateVar.R",
+                 "R/logistic.R", "R/scale01.R", "R/transectSample.R")
+
+for (f in archivos_na) {
+  cat("\n---", f, "---\n")
+  cat(readLines(f), sep = "\n")
+}
+
+
+#Esto añade #' @export al principio de cada archivo .R que no lo tenga ya
+archivos <- list.files("R/", pattern = "\\.R$", full.names = TRUE)
+
+for (f in archivos) {
+  contenido <- readLines(f, warn = FALSE)
+  # Solo añadir si no tiene ya @export
+  if (!any(grepl("@export", contenido))) {
+    nuevo <- c("#' @export", contenido)
+    writeLines(nuevo, f)
+    cat("Actualizado:", f, "\n")
+  } else {
+    cat("Ya tiene @export:", f, "\n")
+  }
+}
+
+# Instala roxygen2 si no lo tienes
+install.packages("roxygen2")
+library(roxygen2)
+
+# Genera el NAMESPACE automáticamente
+roxygen2::roxygenise()
+
+file.exists("NAMESPACE")
+readLines("NAMESPACE")

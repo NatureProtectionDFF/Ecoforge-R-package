@@ -43,3 +43,9 @@ rsconnect/
 
 /.quarto/
 **/*.quarto_ipynb
+
+# PDFs and figures inside vignettes
+vignettes/**/figure-pdf/
+vignettes/**/*_files/
+docs/**/figure-pdf/
+docs/**/*_files/

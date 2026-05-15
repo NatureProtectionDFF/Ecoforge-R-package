@@ -38,6 +38,34 @@ website:
     contents:
       - href: index.qmd
         text: Schedule
+      - section: "Functions descriptions"
+        contents:
+          - href: "reference/abundance2pres.html"
+            text: "abundance2pres"
+          - href: "reference/countOcc.html"
+            text: "countOcc"
+          - href: "reference/generateClim.html"
+            text: "generateClim"
+          - href: "reference/generateMonthlyPrec.html"
+            text: "generateMonthlyPrec"
+          - href: "reference/generateMonthlyTemp.html"
+            text: "generateMonthlyTemp"
+          - href: "reference/generatePoints.html"
+            text: "generatePoints"
+          - href: "reference/generateVar.html"
+            text: "generateVar"
+          - href: "reference/logistic.html"
+            text: "logistic"
+          - href: "reference/pointSample.html"
+            text: "pointSample"
+          - href: "reference/randomSamp.html"
+            text: "randomSamp"
+          - href: "reference/scale01.html"
+            text: "scale01"
+          - href: "reference/transectSample.html"
+            text: "transectSample"
+          - href: "reference/uniformSamp.html"
+            text: "uniformSamp"
       - section: Vignettes
         contents:
           - href: vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html
