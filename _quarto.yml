@@ -11,7 +11,7 @@ project:
 
 website:
   page-navigation: true
-  title: "EcoForge R package"
+  title: "Ecoforge R package"
   site-url: "https://natureprotectiondff.github.io/Ecoforge-R-package"
   repo-url: https://github.com/NatureProtectionDFF/Ecoforge-R-package
   repo-actions: [edit, issue]
@@ -28,6 +28,9 @@ website:
       - icon: github
         href: https://github.com/NatureProtectionDFF/Ecoforge-R-package
         text: "GitHub repository"
+      - icon: globe
+        href: https://www.cibio.up.pt/en/people/details/pedro-tarroso/
+        text: "Pedro Tarroso website" 
       - icon: globe
         href: https://sites.google.com/view/davidferrer/english?authuser=0
         text: "David Ferrer website"
