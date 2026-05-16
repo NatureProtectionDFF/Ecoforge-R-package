@@ -89,3 +89,6 @@ pkgdown::build_reference() # [Codigo en R]
 git add .
 git commit -m "Update website"
 git push
+
+
+

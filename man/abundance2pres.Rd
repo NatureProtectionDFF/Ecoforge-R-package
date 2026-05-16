@@ -4,7 +4,9 @@
 Convert abundance to presence data
 }
 \description{
-Converts abundance data to presence data with imperfect detection.
+Converts abundance data to presence data with imperfect detection. Considering 
+imperfect detection per individual: if any of them are detected it is considered
+as presence unit; if none of them are detected it is considered as absence unit.
 }
 \usage{
 abundance2pres(abun, ipd)
@@ -34,7 +36,21 @@ Returns a data frame with the abundance of each unit and the presence/absence da
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+set.seed(1234)
 
+#Create random values for the required variables: 
+#data frame with abundance values and the imperfect detection value
+sample_id <- sample(1:10, size = 10, replace = FALSE)
+abundance <- sample(0:6, size = 10, replace = TRUE)
+
+abun_df <- data.frame(id = sample_id, abun = abundance)
+head(abun_df, n = 10)
+
+ipd <- 0.5
+
+#Create a new data frame with a new column indicating if the species have been detected or not
+pres_df <- abundance2pres(abun = abun_df, ipd = ipd)
+head(pres_df, n = 10)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
