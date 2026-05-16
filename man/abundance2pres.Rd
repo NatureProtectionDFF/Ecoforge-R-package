@@ -36,11 +36,11 @@ Returns a data frame with the abundance of each unit and the presence/absence da
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-set.seed(1234)
+set.seed(1111)
 
 #Create random values for the required variables: 
 #data frame with abundance values and the imperfect detection value
-sample_id <- sample(1:10, size = 10, replace = FALSE)
+sample_id <- sample(1:40, size = 10, replace = FALSE)
 abundance <- sample(0:6, size = 10, replace = TRUE)
 
 abun_df <- data.frame(id = sample_id, abun = abundance)
