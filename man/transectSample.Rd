@@ -52,25 +52,31 @@ start, bottomleft, bottomright, end and topright points.
 \seealso{
 }
 \examples{
-ns <- 25
-sampling <- rGridSampling(ns, c(0,100), c(0,100), 5)
-sp <- data.frame(x=runif(10000, 0, 100), y = runif(10000, 0, 100))
+set.seed(1234)
 
-tlength <- 5
-drng <- 2
+#Create sampling sites with ecoforge::uniformSamp() function
+sampling <- randomSamp(15, c(0,100), c(0,100), 25)
+
+#Generate random species occurrences
+sp <- data.frame(x = runif(3000, 0, 100), y = runif(3000, 0, 100))
+
+#Create transect sampling units
+tlength <- 10
+drng <- 4
 transect <- transectSample(sampling, sp, tlength, drng)
 
 plot(sp, cex=0.1, asp=1)
-points(sampling, cex=0.5, pch=16, col='red')
+points(sampling, cex=0.5, pch=3, col='red')
 
-for (i in 1:ns) {
-    pnts <- transect$transect
-    lines(pnts$x[i, c(2,5)], pnts$y[i, c(2,5)])
-    polygon(pnts$x[i,], pnts$y[i,], lty=2)
-
-    d <- transect$d[,i]
-    msk <- !is.na(d)
-    col <- as.integer(cut(d[msk], seq(0, drng, length.out=5)))
-    points(sp[msk,], pch=16, cex=0.6, col=rainbow(10)[col]) 
+for (i in 1:nrow(sampling)) {
+  pnts <- transect$transect
+  lines(pnts$x[i, c(2,5)], pnts$y[i, c(2,5)])
+  polygon(pnts$x[i,], pnts$y[i,], lty=2)
+  
+  d <- transect$distance[,i]
+  msk <- !is.na(d)
+  col <- as.integer(cut(d[msk], seq(0, drng, length.out=5)))
+  points(sp[msk,], pch=16, cex=0.6, col=rainbow(10)[col]) 
+  set.seed(1234)
 }
 }

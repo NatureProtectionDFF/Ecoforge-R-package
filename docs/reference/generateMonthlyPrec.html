@@ -116,11 +116,25 @@ for each month (columns).</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m_prec</span> <span class="op">&lt;-</span> <span class="fu">generateMonthlyPrec</span><span class="op">(</span><span class="va">clim</span><span class="op">$</span><span class="va">prec</span>, <span class="va">clim</span><span class="op">$</span><span class="va">prec_variation</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Generate base climate data</span></span></span>
 <span class="r-in"><span><span class="va">clim</span> <span class="op">&lt;-</span> <span class="fu"><a href="generateClim.html">generateClim</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [using unconditional Gaussian simulation]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [using unconditional Gaussian simulation]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [using unconditional Gaussian simulation]</span>
+<span class="r-in"><span>  </span></span>
+<span class="r-in"><span><span class="co"># Generate monthly precipitation for each cell</span></span></span>
 <span class="r-in"><span><span class="va">m_prec</span> <span class="op">&lt;-</span> <span class="fu">generateMonthlyPrec</span><span class="op">(</span><span class="va">clim</span><span class="op">$</span><span class="va">prec</span>, <span class="va">clim</span><span class="op">$</span><span class="va">prec_variation</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  </span></span>
+<span class="r-in"><span><span class="co"># Average precipitation per month across all cells</span></span></span>
+<span class="r-in"><span><span class="va">monthly_avg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">m_prec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">monthly_avg</span>, names.arg <span class="op">=</span> <span class="va">month.abb</span>,</span></span>
+<span class="r-in"><span>          xlab <span class="op">=</span> <span class="st">"Month"</span>, ylab <span class="op">=</span> <span class="st">"Precipitation (mm)"</span>,</span></span>
+<span class="r-in"><span>          main <span class="op">=</span> <span class="st">"Average monthly precipitation"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="generateMonthlyPrec-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

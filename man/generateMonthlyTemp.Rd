@@ -49,8 +49,17 @@ Returns a list with tmin, tavg and tmax matrices with data for each cell
 \examples{
 set.seed(1234)
 
+# Generate base climate data
 clim <- generateClim()
+  
+# Generate monthly precipitation for each cell
 m_temp <- generateMonthlyTemp(clim$temp, clim$daily_amp, clim$annual_range)
+  
+# Average temperature per month across all cells
+monthly_avg <- colMeans(m_temp$tavg)
+barplot(monthly_avg, names.arg = month.abb,
+          xlab = "Month", ylab = "Temperature (ºC)",
+          main = "Average monthly temperature")
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

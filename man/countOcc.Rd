@@ -32,8 +32,26 @@ Returns a data frame with count values per site.
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+set.seed(1234)
 
+#Generate ocurrence points
+occ <- data.frame(x = runif(500, 0, 100), y = runif(500, 0, 100))
+#Generate sampling units
+sites <- uniformSamp(c(0, 100), c(0, 100), 25)
 
+plot(occ)
+points(sites, col = "red", pch = 19)
+
+#Get the distance matrix from a point sampling procedure with the ecoforge::pointSample() function
+psamp <- pointSample(sites, occ, radius = 10)
+
+#Count occurrences detected per sampling unit
+counts <- countOcc(psamp$distance)
+head(counts)
+barplot(counts$count, names.arg = counts$site_ID,
+        xlab = "Site ID", ylab = "Count",
+        main = "Detections per sampling site")
+        
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory (show via RShowDoc("KEYWORDS")):

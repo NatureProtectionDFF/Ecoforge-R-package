@@ -39,9 +39,12 @@ Returns a table of coordinates of the sampling sites.
 \seealso{
 }
 \examples{
-# Create 25 sampling sites in a square grid.
-ns <- 25
-sampling <- randomSamp(ns, c(0,100), c(0,100), 5)
-sampling
+set.seed(1234)
+
+# Create 25 random sampling sites in a 100x100 grid.
+sampling <- randomSamp(25, c(0,100), c(0,100), 5)
+plot(sampling, pch = 16, col = "red",
+     xlab = "x", ylab = "y",
+     main = "Random sampling sites")
 }
 

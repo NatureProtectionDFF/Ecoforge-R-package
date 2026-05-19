@@ -36,8 +36,10 @@ Returns a table of coordinates of the sampling sites.
 \seealso{
 }
 \examples{
-# Create 25 sampling sites in a square grid.
-sampling <- uniformSamp(c(0,100), c(0,100), 5)
-sampling
+# Create uniform sampling grid in a 100x100 grid.
+sampling <- uniformSamp(c(0,100), c(0,100), 10)
+plot(sampling, pch = 16, col = "blue",
+     xlab = "x", ylab = "y",
+     main = "Uniform sampling grid")
 }
 

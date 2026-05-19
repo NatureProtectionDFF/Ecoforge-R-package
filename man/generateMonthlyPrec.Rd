@@ -43,8 +43,21 @@ for each month (columns).
 }
 \examples{
 set.seed(1234)
-clim <- generateClim()
+
 m_prec <- generateMonthlyPrec(clim$prec, clim$prec_variation)
+
+
+# Generate base climate data
+clim <- generateClim()
+  
+# Generate monthly precipitation for each cell
+m_prec <- generateMonthlyPrec(clim$prec, clim$prec_variation)
+  
+# Average precipitation per month across all cells
+monthly_avg <- colMeans(m_prec)
+barplot(monthly_avg, names.arg = month.abb,
+          xlab = "Month", ylab = "Precipitation (mm)",
+          main = "Average monthly precipitation")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory (show via RShowDoc("KEYWORDS")):
