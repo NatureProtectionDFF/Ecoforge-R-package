@@ -4,9 +4,29 @@
     "href": "index.html",
     "title": "Ecoforge R package",
     "section": "",
-    "text": "An R package with a set of tools for simulating ecological environments and generate species’ counts or presence/absence data for ecological analyses.",
+    "text": "An R package with a set of tools for simulating spatial data: ecological environments and generate species’ counts or presence/absence data for ecological analyses.",
     "crumbs": [
-      "Schedule"
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#what-is-ecoforge",
+    "href": "index.html#what-is-ecoforge",
+    "title": "Ecoforge R package",
+    "section": "What is Ecoforge?",
+    "text": "What is Ecoforge?\nThe purpose of Ecoforge is to simulate natural processes in space for subsequent analysis. This package enables you to: 1)create new spatial environmental layers (predictors), 2)adjust a spatial suitability layer based on this environmental layers, 3)distribute the species’ individuals around it, and 4)obtain sampled data of the species (abundance and detections), with an extra example to check the collinearity between variables.\n\n\n\nFigure 1. Diagram showing the various general areas that this package can address.\n\n\nIt allows researchers to:\n\nSimulate spatial layers of environmental variables with varying degrees of spatial autocorrelation (climate, vegetation, land use, etc.).\nGenerate spatial layers of environmental suitability for virtual species, as well as distribute individuals as spatial points across their surface.\nApply different sampling strategies (using point counts or transects, and employing uniform or random sampling) to the simulated individuals.\nConvert the simulated data into presence/absence or count formats ready for use in various spatial ecology models (e.g., habitat selection studies, species distribution models, etc.).\n\nThis website provides all the information and details about the functions included in the package, as well as some examples of complete simulation vignettes.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#when-should-i-use-ecoforge",
+    "href": "index.html#when-should-i-use-ecoforge",
+    "title": "Ecoforge R package",
+    "section": "When should I use Ecoforge?",
+    "text": "When should I use Ecoforge?\nEcoForge is particularly useful when controlled and reproducible scenarios are needed. For example:\n\nTesting the performance of spatial models under known conditions\nEvaluating the effect of sampling design on model accuracy\nTeaching and demonstrating concepts in ecological modelling",
+    "crumbs": [
+      "Home"
     ]
   },
   {
@@ -14,9 +34,9 @@
     "href": "index.html#instalation",
     "title": "Ecoforge R package",
     "section": "Instalation",
-    "text": "Instalation\n# install.packages(\"devtools\")\ninstall_github(\"https://github.com/NatureProtectionDFF/Ecoforge-R-package\")\n\nlibrary(ecoforge)\nls(\"package:ecoforge\")",
+    "text": "Instalation\n# install.packages(\"devtools\")\ndevtools::install_github(\"NatureProtectionDFF/Ecoforge-R-package\")\n\nlibrary(ecoforge)\nls(\"package:ecoforge\")",
     "crumbs": [
-      "Schedule"
+      "Home"
     ]
   },
   {
@@ -26,7 +46,7 @@
     "section": "Functions descriptions",
     "text": "Functions descriptions\n\nabundance2pres\ncountOcc\ngenerateClim\ngenerateMonthlyPrec\ngenerateMonthlyTemp\ngeneratePoints\ngenerateVar\nlogistic\npointSample\nrandomSamp\nscale01\ntransectSample\nuniformSamp",
     "crumbs": [
-      "Schedule"
+      "Home"
     ]
   },
   {
@@ -36,7 +56,17 @@
     "section": "Available vignettes",
     "text": "Available vignettes\n\nFerrer-Ferrando et al. Ecography\nPackage Example",
     "crumbs": [
-      "Schedule"
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#citation",
+    "href": "index.html#citation",
+    "title": "Ecoforge R package",
+    "section": "Citation",
+    "text": "Citation\nFor now, there is only one article available that uses some of its features as a reference. So if you use EcoForge in your research, please cite this work:\n\nFerrer-Ferrando, D., Tarroso, P., Luis Tellería, J., Acevedo, P. and Fernández-López, J. (2025), Disentangling the effect of the spatial scale and species spatial pattern on the abundance–suitability relationship. Ecography, 2025: e07766. https://doi.org/10.1111/ecog.07766\n\nWe will soon have a software note focused on this package available as a citation reference.",
+    "crumbs": [
+      "Home"
     ]
   }
 ]

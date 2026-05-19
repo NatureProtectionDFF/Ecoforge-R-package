@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Schedule</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Schedule</span></a>
+ <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -277,9 +277,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#instalation" id="toc-instalation" class="nav-link active" data-scroll-target="#instalation">Instalation</a></li>
+  <li><a href="#what-is-ecoforge" id="toc-what-is-ecoforge" class="nav-link active" data-scroll-target="#what-is-ecoforge">What is Ecoforge?</a></li>
+  <li><a href="#when-should-i-use-ecoforge" id="toc-when-should-i-use-ecoforge" class="nav-link" data-scroll-target="#when-should-i-use-ecoforge">When should I use Ecoforge?</a></li>
+  <li><a href="#instalation" id="toc-instalation" class="nav-link" data-scroll-target="#instalation">Instalation</a></li>
   <li><a href="#functions-descriptions" id="toc-functions-descriptions" class="nav-link" data-scroll-target="#functions-descriptions">Functions descriptions</a></li>
   <li><a href="#available-vignettes" id="toc-available-vignettes" class="nav-link" data-scroll-target="#available-vignettes">Available vignettes</a></li>
+  <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">Citation</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/NatureProtectionDFF/Ecoforge-R-package/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/NatureProtectionDFF/Ecoforge-R-package/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -311,11 +314,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>An R package with a set of tools for simulating ecological environments and generate species’ counts or presence/absence data for ecological analyses.</p>
+<p>An R package with a set of tools for simulating spatial data: ecological environments and generate species’ counts or presence/absence data for ecological analyses.</p>
+<section id="what-is-ecoforge" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-ecoforge">What is Ecoforge?</h2>
+<p>The purpose of <strong>Ecoforge</strong> is to <u>simulate natural processes in space for subsequent analysis</u>. This package enables you to: 1)create new spatial environmental layers (predictors), 2)adjust a spatial suitability layer based on this environmental layers, 3)distribute the species’ individuals around it, and 4)obtain sampled data of the species (abundance and detections), with an extra example to check the collinearity between variables.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/schedule.png" class="img-fluid figure-img"></p>
+<figcaption><strong>Figure 1.</strong> Diagram showing the various general areas that this package can address.</figcaption>
+</figure>
+</div>
+<p>It allows researchers to:</p>
+<ul>
+<li><p>Simulate spatial layers of environmental variables with varying degrees of spatial autocorrelation (climate, vegetation, land use, etc.).</p></li>
+<li><p>Generate spatial layers of environmental suitability for virtual species, as well as distribute individuals as spatial points across their surface.</p></li>
+<li><p>Apply different sampling strategies (using point counts or transects, and employing uniform or random sampling) to the simulated individuals.</p></li>
+<li><p>Convert the simulated data into presence/absence or count formats ready for use in various spatial ecology models (e.g., habitat selection studies, species distribution models, etc.).</p></li>
+</ul>
+<p>This website provides all the information and details about the functions included in the package, as well as some examples of complete simulation vignettes.</p>
+</section>
+<section id="when-should-i-use-ecoforge" class="level2">
+<h2 class="anchored" data-anchor-id="when-should-i-use-ecoforge">When should I use Ecoforge?</h2>
+<p><em>EcoForge</em> is particularly useful when controlled and reproducible scenarios are needed. For example:</p>
+<ul>
+<li>Testing the performance of spatial models under known conditions</li>
+<li>Evaluating the effect of sampling design on model accuracy</li>
+<li>Teaching and demonstrating concepts in ecological modelling</li>
+</ul>
+</section>
 <section id="instalation" class="level2">
 <h2 class="anchored" data-anchor-id="instalation">Instalation</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"https://github.com/NatureProtectionDFF/Ecoforge-R-package"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"NatureProtectionDFF/Ecoforge-R-package"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecoforge)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:ecoforge"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -344,6 +374,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html">Ferrer-Ferrando et al.&nbsp;Ecography</a></li>
 <li><a href="vignettes/Package_Example/QUARTO_ECOFORGE_HTML_PDF.html">Package Example</a></li>
 </ul>
+</section>
+<section id="citation" class="level2">
+<h2 class="anchored" data-anchor-id="citation">Citation</h2>
+<p>For now, there is only one article available that uses some of its features as a reference. So if you use EcoForge in your research, please cite this work:</p>
+<ul>
+<li>Ferrer-Ferrando, D., Tarroso, P., Luis Tellería, J., Acevedo, P. and Fernández-López, J. (2025), <em>Disentangling the effect of the spatial scale and species spatial pattern on the abundance–suitability relationship</em>. Ecography, 2025: e07766. https://doi.org/10.1111/ecog.07766</li>
+</ul>
+<p>We will soon have a software note focused on this package available as a citation reference.</p>
 
 
 <!-- -->
@@ -816,38 +854,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "David Ferrer Ferrando &amp; Pedro Tarroso"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>An R package with a set of tools for simulating ecological environments and generate species' counts or presence/absence data for ecological analyses.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>An R package with a set of tools for simulating spatial data: ecological environments and generate species' counts or presence/absence data for ecological analyses.</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Instalation</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is Ecoforge?</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="in">``` r</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"https://github.com/NatureProtectionDFF/Ecoforge-R-package"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>The purpose of **Ecoforge** is to <span class="co">[</span><span class="ot">simulate natural processes in space for subsequent analysis</span><span class="co">]</span>{.underline}. This package enables you to: 1)create new spatial environmental layers (predictors), 2)adjust a spatial suitability layer based on this environmental layers, 3)distribute the species' individuals around it, and 4)obtain sampled data of the species (abundance and detections), with an extra example to check the collinearity between variables.</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="al">![**Figure 1.** Diagram showing the various general areas that this package can address.](images/schedule.png)</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecoforge)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:ecoforge"</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>It allows researchers to:</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Simulate spatial layers of environmental variables with varying degrees of spatial autocorrelation (climate, vegetation, land use, etc.).</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Functions descriptions</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Generate spatial layers of environmental suitability for virtual species, as well as distribute individuals as spatial points across their surface.</span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">abundance2pres</span><span class="co">](reference/abundance2pres.html)</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">countOcc</span><span class="co">](reference/countOcc.html)</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">generateClim</span><span class="co">](reference/generateClim.html)</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">generateMonthlyPrec</span><span class="co">](reference/generateMonthlyPrec.html)</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">generateMonthlyTemp</span><span class="co">](reference/generateMonthlyTemp.html)</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">generatePoints</span><span class="co">](reference/generatePoints.html)</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">generateVar</span><span class="co">](reference/generateVar.html)</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">logistic</span><span class="co">](reference/logistic.html)</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">pointSample</span><span class="co">](reference/pointSample.html)</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">randomSamp</span><span class="co">](reference/randomSamp.html)</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">scale01</span><span class="co">](reference/scale01.html)</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">transectSample</span><span class="co">](reference/transectSample.html)</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">uniformSamp</span><span class="co">](reference/uniformSamp.html)</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Apply different sampling strategies (using point counts or transects, and employing uniform or random sampling) to the simulated individuals.</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Convert the simulated data into presence/absence or count formats ready for use in various spatial ecology models (e.g., habitat selection studies, species distribution models, etc.).</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>This website provides all the information and details about the functions included in the package, as well as some examples of complete simulation vignettes.</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## When should I use Ecoforge?</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>*EcoForge* is particularly useful when controlled and reproducible scenarios are needed. For example:</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Testing the performance of spatial models under known conditions</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Evaluating the effect of sampling design on model accuracy</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Teaching and demonstrating concepts in ecological modelling</span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Available vignettes</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Instalation</span></span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Ferrer-Ferrando et al. Ecography</span><span class="co">](vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html)</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Package Example</span><span class="co">](vignettes/Package_Example/QUARTO_ECOFORGE_HTML_PDF.html)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="in">``` r</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"NatureProtectionDFF/Ecoforge-R-package"</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecoforge)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:ecoforge"</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Functions descriptions</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">abundance2pres</span><span class="co">](reference/abundance2pres.html)</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">countOcc</span><span class="co">](reference/countOcc.html)</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">generateClim</span><span class="co">](reference/generateClim.html)</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">generateMonthlyPrec</span><span class="co">](reference/generateMonthlyPrec.html)</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">generateMonthlyTemp</span><span class="co">](reference/generateMonthlyTemp.html)</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">generatePoints</span><span class="co">](reference/generatePoints.html)</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">generateVar</span><span class="co">](reference/generateVar.html)</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">logistic</span><span class="co">](reference/logistic.html)</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">pointSample</span><span class="co">](reference/pointSample.html)</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">randomSamp</span><span class="co">](reference/randomSamp.html)</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">scale01</span><span class="co">](reference/scale01.html)</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">transectSample</span><span class="co">](reference/transectSample.html)</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">uniformSamp</span><span class="co">](reference/uniformSamp.html)</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Available vignettes</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Ferrer-Ferrando et al. Ecography</span><span class="co">](vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html)</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Package Example</span><span class="co">](vignettes/Package_Example/QUARTO_ECOFORGE_HTML_PDF.html)</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Citation</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>For now, there is only one article available that uses some of its features as a reference. So if you use EcoForge in your research, please cite this work:</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Ferrer-Ferrando, D., Tarroso, P., Luis Tellería, J., Acevedo, P. and Fernández-López, J. (2025), *Disentangling the effect of the spatial scale and species spatial pattern on the abundance–suitability relationship*. Ecography, 2025: e07766. https://doi.org/10.1111/ecog.07766</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>We will soon have a software note focused on this package available as a citation reference.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -15,6 +15,6 @@ Description: The package offers tools for simulating environments, encompassing 
   sampling these environments, incorporating random strategies and transects.
 VignetteBuilder: knitr
 License: GPL (>= 2)
-URL: TO_BE_FILLED
-BugReports: TO_BE_FILLED
+URL: https://natureprotectiondff.github.io/Ecoforge-R-package
+BugReports: https://github.com/NatureProtectionDFF/Ecoforge-R-package/issues
 Config/roxygen2/version: 8.0.0

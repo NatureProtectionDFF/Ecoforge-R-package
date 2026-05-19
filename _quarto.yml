@@ -42,7 +42,7 @@ website:
     collapse-level: 1
     contents:
       - href: index.qmd
-        text: Schedule
+        text: Home
       - section: "Functions descriptions"
         contents:
           - href: "reference/abundance2pres.html"
