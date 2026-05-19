@@ -9,6 +9,7 @@ library(ecoforge)
 library(ecoforge)
 ls("package:ecoforge")
 
+##AUTOMATIZAR LA CREACIÓN DE HTMLs PARA LA SECCION DE FUNCIONES EN BASE A LOS R Y RD ####
 #Instalar paquete que permite visualizar las funciones creadas y su descripción en la web
 install.packages("pkgdown")
 library(pkgdown)
@@ -59,6 +60,7 @@ for (f in archivos) {
   }
 }
 
+
 # Instala roxygen2 si no lo tienes
 install.packages("roxygen2")
 library(roxygen2)
@@ -71,6 +73,7 @@ readLines("NAMESPACE")
 
 unlink("docs/index.html")
 
+##RENDERIZAR LA WEB CON ACTUALIZACIONES ####
 #Pero hay un detalle importante: cada vez que hagas quarto render 
 #después de esto, Quarto no borrará la carpeta docs/reference/ 
 #porque no la genera él, la genera pkgdown. Así que el flujo de 

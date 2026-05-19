@@ -3,8 +3,12 @@ Package: ecoforge
 Version: 0.2
 Date: 2024-09-09
 Title: A collection of tools for simulating and sampling ecological environments
-Author: David Ferrer Ferrando [aut, cre], Javier Fernández-López [aut], Pelayo Acevedo [aut], Pedro Tarroso [aut, cre], 
-Maintainer: Pedro Tarroso <ptarroso@cibio.up.pt>
+Authors@R: c(
+    person("David", "Ferrer Ferrando", role = "aut"),
+    person("Pedro", "Tarroso", role = c("aut", "cre"),
+           email = "ptarroso@cibio.up.pt"),
+    person("Javier", "Fernández-López", role = "ctb"),
+    person("Pelayo", "Acevedo", role = "ctb"))
 Depends: stats, gstat, terra, spatstat.geom, spatstat.random, knitr
 Description: The package offers tools for simulating environments, encompassing both 
   climate and landscape simulations. Additionally, it provides valuable functions for 
