@@ -1,4 +1,6 @@
-# Ecoforge-R-package
+# Ecoforge-R-package  <img width="150" height="170" alt="Logo" src="https://github.com/user-attachments/assets/2ed9ee77-8dd4-4f89-880c-cd970cacd103" />
+
+
 An R package with a set of tools for simulating ecological environments and generate species' counts or presence/absence data for ecological analyses.
 
 
