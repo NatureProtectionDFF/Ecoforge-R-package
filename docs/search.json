@@ -1,5 +1,15 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Ecoforge R package",
+    "section": "",
+    "text": "An R package with a set of tools for simulating spatial data: ecological environments and generate species’ counts or presence/absence data for ecological analyses.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
     "objectID": "index.html#what-is-ecoforge",
     "href": "index.html#what-is-ecoforge",
     "title": "Ecoforge R package",
