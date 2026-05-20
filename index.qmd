@@ -3,11 +3,25 @@ title: "Ecoforge R package"
 author: "David Ferrer Ferrando & Pedro Tarroso"
 ---
 
+![](images/Logo.png){align="right" width="164"}
+
+# *Simulating environments and species for spatial ecological analysis*
+
 An R package with a set of tools for simulating spatial data: ecological environments and generate species' counts or presence/absence data for ecological analyses.
 
 ## What is Ecoforge?
 
-The purpose of **Ecoforge** is to [simulate natural processes in space for subsequent analysis]{.underline}. This package enables you to: 1)create new spatial environmental layers (predictors), 2)adjust a spatial suitability layer based on this environmental layers, 3)distribute the species' individuals around it, and 4)obtain sampled data of the species (abundance and detections), with an extra example to check the collinearity between variables.
+The purpose of **Ecoforge** is to [simulate natural processes in space for subsequent analysis]{.underline}. This package enables you to:
+
+1.  Create new spatial environmental layers (predictors)
+
+2.  Adjust a spatial suitability layer based on this environmental layers
+
+3.  Distribute the species' individuals around it
+
+4.  Obtain sampled data of the species (abundance and detections)
+
+With an extra example to check the collinearity between variables.
 
 ![**Figure 1.** Diagram showing the various general areas that this package can address.](images/schedule.png)
 
@@ -31,7 +45,7 @@ This website provides all the information and details about the functions includ
 -   Evaluating the effect of sampling design on model accuracy
 -   Teaching and demonstrating concepts in ecological modelling
 
-## Instalation
+## Installation
 
 ``` r
 # install.packages("devtools")
@@ -41,21 +55,59 @@ library(ecoforge)
 ls("package:ecoforge")
 ```
 
-## Functions descriptions
+## Functions Reference
 
--   [abundance2pres](reference/abundance2pres.html)
--   [countOcc](reference/countOcc.html)
--   [generateClim](reference/generateClim.html)
--   [generateMonthlyPrec](reference/generateMonthlyPrec.html)
--   [generateMonthlyTemp](reference/generateMonthlyTemp.html)
--   [generatePoints](reference/generatePoints.html)
--   [generateVar](reference/generateVar.html)
--   [logistic](reference/logistic.html)
--   [pointSample](reference/pointSample.html)
--   [randomSamp](reference/randomSamp.html)
--   [scale01](reference/scale01.html)
--   [transectSample](reference/transectSample.html)
--   [uniformSamp](reference/uniformSamp.html)
+Ecoforge functions are organized following the logical steps of a virtual ecology workflow. Functions are grouped according to the procedure being carried out: (A) generating the spatial patterns of environmental variables, (B) transforming that information into different ranges or distributions, (C) generating the spatial patterns of the target species, and (D) collecting data from those spatial patterns with different sampling strategies, and preparing them in a format suitable for the models to be applied (Figure 2).
+
+![**Figure 2.** This flowchart illustrates the relationships and dependencies among the functions included in this package. Although this represents the general workflow established when creating these functions, it is possible to combine them in other ways or use them more independently.](images/Functions_diagram.png)
+
+### Create environment spatial pattern
+
+Functions to generate modulated spatially autocorrelated environmental variables using Gaussian simulations with a Spherical model.
+
+| Function | Description |
+|--------------------------------|----------------------------------------|
+| [`generateVar()`](reference/generateVar.html) | Generates a single variable (e.g. vegetation, terrain) with modulated spatial autocorrelation |
+| [`generateClim()`](reference/generateClim.html) | Generates a full climate dataset including temperature and precipitation with modulated spatial autocorrelation |
+| [`generateMonthlyTemp()`](reference/generateMonthlyTemp.html) | Derives monthly minimum, average and maximum temperature from annual data, based on 'generateClim()' output |
+| [`generateMonthlyPrec()`](reference/generateMonthlyPrec.html) | Derives monthly precipitation from annual data with seasonal pattern, based on 'generateClim()' output |
+
+### Data transformation
+
+Utility functions to rescale or transform variables and suitabilty patterns before using them to generate species' data.
+
+| Function | Description |
+|--------------------------------|----------------------------------------|
+| [`scale01()`](reference/scale01.html) | Linearly rescales any variable to the \[0, 1\] range |
+| [`logistic()`](reference/logistic.html) | Applies a logistic transformation to control distibution of data frequency |
+
+### Create species spatial pattern
+
+Generates virtual species occurrences in space based on a suitability layer, simulating an inhomogeneous Poisson point process.
+
+| Function | Description |
+|--------------------------------|----------------------------------------|
+| [`generatePoints()`](reference/generatePoints.html) | Distributes individuals as points across the landscape according to habitat suitability |
+
+### Sampling data (I)
+
+Functions to first define survey locations and and then simulate field sampling procedures, returning detection distances for each individual inside the detection area of the sampling unit.
+
+| Function | Description |
+|--------------------------------|----------------------------------------|
+| [`uniformSamp()`](reference/uniformSamp.html) | Places survey sites on a regular systematic grid |
+| [`randomSamp()`](reference/randomSamp.html) | Places survey sites at random positions within a grid |
+| [`pointSample()`](reference/pointSample.html) | Simulates point count surveys within a detection radius |
+| [`transectSample()`](reference/transectSample.html) | Simulates line transect surveys within a detection range |
+
+### Sampling data (II)
+
+Functions to convert raw sampling output (distances for each individual inside the detection area) into formats ready for the models to be applied.
+
+| Function | Description |
+|--------------------------------|----------------------------------------|
+| [`countOcc()`](reference/countOcc.html) | Counts of detected individuals per survey site |
+| [`abundance2pres()`](reference/abundance2pres.html) | Converts abundance counts to presence/absence considering imperfect detection |
 
 ## Available vignettes
 
