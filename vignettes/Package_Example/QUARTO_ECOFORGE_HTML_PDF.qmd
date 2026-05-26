@@ -15,17 +15,17 @@ toc: true
 ::::: {style="display: flex; align-items: center; justify-content: space-between;"}
 <div>
 
-<h1>Ecoforge_Rpackage</h1>
+<h1>Ecoforge_Rpackage example</h1>
 
-<p><strong>Authors</strong><br> David Ferrer Ferrando, Javier Fernández López, Pelayo Acevedo & Pedro Tarroso</p>
+<p><strong>Authors</strong><br> David Ferrer Ferrando, Pelayo Acevedo & Pedro Tarroso</p>
 
-<p><strong>Published</strong><br> 2024/03/19 - 2026/03/27</p>
+<p><strong>Published</strong><br> 2024/03/19 - 2026/05/27</p>
 
 </div>
 
 <div>
 
-<img src="figs/Logo.3.png" width="140"/>
+![](/images/Logo.png){width="168"}
 
 </div>
 :::::
@@ -39,15 +39,15 @@ toc: true
 {\LARGE \textbf{Ecoforge\_Rpackage}} \\[0.3cm]
 
 \textbf{Authors} \\
-David Ferrer Ferrando, Javier Fernández López, Pelayo Acevedo \& Pedro Tarroso \\
+David Ferrer Ferrando, Pelayo Acevedo \& Pedro Tarroso \\
 
 \textbf{Published} \\
-2024/03/19 - 2026/03/27
+2024/03/19 - 2026/05/27
 \end{minipage}\hfill
 \begin{minipage}[t]{0.28\textwidth}
 \vspace{0pt}
 \centering
-\includegraphics[width=\linewidth]{figs/Logo.3.png}
+\includegraphics[width=\linewidth]{images/Logo.png}
 \end{minipage}
 
 \vspace{0.5cm}
@@ -58,53 +58,56 @@ David Ferrer Ferrando, Javier Fernández López, Pelayo Acevedo \& Pedro Tarroso
 
 ------------------------------------------------------------------------
 
-# Simulating environments for ecological analyses
+# Case Study: Simulating virtual species and sampling designs with the Ecoforge package
 
-The purpose of **Ecoforge** is to [simulate natural processes in space for subsequent analysis]{.underline}. This package enables you to: 1)create new environmental layers (predictors), 2)adjust a suitability layer based on this environmental layers, 3)distribute the species' individuals around it, and 4)obtain sampled data of the species (abundance and detections), with an extra example to check the collinearity between variables. To see more about *Ecoforge* package (and other *vignettes*) see [GitHub Repository](https://github.com/ptarroso/ecoforge){.uri}.
+In this vignette we present [a complete case study illustrating how to use the *EcoForge* package to build spatially explicit simulations of virtual species]{.underline}. This type of virtual ecology framework is particularly useful for evaluating spatial ecology models (such as species distribution models or occupancy models) under known and controlled conditions. For example evaluating the effect of different sampling strategies on model performance, or generating reproducible synthetic datasets for methodological research in ecology.
 
-![](images/schedule.png){fig-align="center"}
+To facilitate the comprehension of the full simulation workflow and the possibilities offered by the package functions, the example is structured in the following steps:
+
+1.  **Install and load the required packages** (Ecoforge and dependencies).
+
+2.  **Generate the environmental spatial layers**, and modify or transform them to define habitat characteristics of the study area.
+
+3.  **Define the target species' habitat suitability**, combining environmental layers to build a spatial suitability surface.
+
+4.  **Generate the species' distribution**, placing individuals across the study area according to habitat suitability, and optionally introducing possible distribution bias.
+
+5.  **Sample the species' distribution**, designing the survey strategy (point counts or line transects, random or uniform sampling units), and obtaining count or presence/absence (or detection/non-detection) data.
+
+6.  **Export the simulated data** in formats ready for use in ecological models.
+
+7.  **Additional tip** assessing correlation between environmental variables before model fitting.
+
+To see more about *Ecoforge* package (and other *vignettes*) see [Ecoforge website](https://natureprotectiondff.github.io/Ecoforge-R-package/)
 
 ## 1. Getting started
 
-First of all, install and charge all the packages required for the correct function of these simulations.
+First of all, install and load *Ecoforge* package and all the dependencies required for the correct function of these simulations.
 
 ```{r}
 #| label: Charge packages
 #| message: false
 #| warning: false
-#install.packages("terra", repos = "http://cran.us.r-project.org")
-#install.packages("dismo", repos = "http://cran.us.r-project.org")
-#install.packages("spatstat", repos = "http://cran.us.r-project.org")
-#install.packages("gstat", repos = "http://cran.us.r-project.org")
-#install.packages("fields", repos = "http://cran.us.r-project.org")
-#install.packages("landscapemetrics", repos = "http://cran.us.r-project.org")
-library(terra)
+
+# install.packages("dismo")
+# install.packages("fields")
+# install.packages("devtools")
+# devtools::install_github("NatureProtectionDFF/Ecoforge-R-package")
+library(ecoforge)
 library(dismo)
-library(spatstat)
 library(fields)
 
 set.seed(1234) # To create reproducible results
 
 ```
 
-After that, charge *Ecoforge* functions
+## 2. Generate the environmental spatial layers
 
-```{r}
-#| label: Charge Ecoforge functions
-#| message: false
-#| warning: false
-library(this.path)
-current_script_directory <- this.dir()
-source(file.path("C:/Users/david/OneDrive - Universidad de Castilla-La Mancha/DOCTORADO UCLM/ESTANCIAS/estancia UCLM/simulaciones", "funciones_simulación.R"))
-```
-
-## 2. Create environmental variables.
-
-These functions let us control and determine some parameter values that define spatial variables. Inside of this function, we employ a previous developed function `gstat()` of the package **gstat**.
+These functions let us control and determine some parameter values that define spatial variables. Inside of these functions, we employ a previous developed function `gstat()` of the package **gstat**.
 
 ### 2.1 Climate variables
 
-We start creating clime conditions. To do this, we have a first function `generateClim()` that allows us to create climate variables (in this case, temperature and precipitation). When creating these variables, several parameters can be controlled, such as the mean value `Tmean & Pmean`, the range of variation `Tsd & Psd`, and the range of spatial autocorrelation `Trange & Prange`. For temperature, daily and annual ranges are also considered `T_amp & T_ar`, both with maximum and minimum range values. Precipitation also follows an annual range `Pav`. Both annual ranges follow a latitudinal gradient: in this case, the higher the latitude, the greater the range. To learn more about the different components of this function (and the following ones), read the description and details of the function available on GitHub, [Ecoforge User Guide](https://github.com/ptarroso/ecoforge/tree/main/man){.uri}.
+We start creating clime conditions. To do this, we have a first function `generateClim()` that allows us to create climate variables (in this case, temperature and precipitation). When creating these variables, several parameters can be controlled, such as the mean value `Tmean & Pmean`, the range of variation `Tsd & Psd`, and the range of spatial autocorrelation `Trange & Prange`. For temperature, daily and annual ranges are also considered `T_amp & T_ar`, both with maximum and minimum range values. Precipitation also follows an annual range `Pav`. Both annual ranges follow a latitudinal gradient: in this case, the higher the latitude, the greater the range. To learn more about the different components of this function (and the following ones), read the description and details of the function available on the website, [Ecoforge Functions reference](https://natureprotectiondff.github.io/Ecoforge-R-package/#functions-reference){.uri}.
 
 ```{r}
 #| label: Create Clime conditions
@@ -120,7 +123,7 @@ clim_rst <- c(clim_rst$temp, clim_rst$prec) #save a raster with only mean Temper
 
 ```
 
-But what we have obtained is an average value in a fixed image (a single value per cell). In this fixed image, we have a single value per cell. To obtain a value that varies throughout the year for each cell, we create monthly values for temperature and precipitation with the `generateMonthlyTemp()` and `generateMonthlyPrec()` functions, respectivelly. In the case of temperature, we will obtain a maximum, average, and minimum temperature for each month. In the case of precipitation, we obtain the cumulative value for each month. The daily and annual high and low values are determined by the values assigned within the ranges we set before.
+But what we have obtained is an average value in a fixed image (a single value per cell). In this fixed image, we have a single value per cell. To obtain a value that varies throughout the year for each cell, we create monthly values for temperature and precipitation with the `generateMonthlyTemp()` and `generateMonthlyPrec()` functions, respectively. In the case of temperature, we will obtain a maximum, average, and minimum temperature for each month. In the case of precipitation, we obtain the cumulative value for each month. The daily and annual high and low values are determined by the values assigned within the ranges we set before.
 
 ```{r}
 #| label: Create monthly variation
@@ -187,7 +190,7 @@ But if we want to create other types of environmental (non-climate) variables, w
 
 ```{r}
 #| label: Create vegetation
-vegt <- generateVarb(nrow=200, ncol=200, Vmean=8, Vsd=3, Vrange=10)
+vegt <- generateVar(nrow=200, ncol=200, Vmean=8, Vsd=3, Vrange=10)
 
 vegt_rst <- rast(vegt, type="xyz")
 plot(vegt_rst, col= cols)
@@ -227,7 +230,7 @@ plot(vegt_40, col= cols)
 plot(vegt_20, col= cols)
 ```
 
-## 3. Create the suitability (or expected abundance) for the species
+## 3. Define the target species' habitat suitability (or expected abundance)
 
 In this section, we are going to simulate a layer that indicates the suitability of each cell for a target species, based on previously defined predictor variables (such as those we just created in the previous section).
 
@@ -258,17 +261,17 @@ r_error[] <- rnorm(ncell(r_error), mean = 0, sd = 0.1)
 plot(r_error, col= cols)
 ```
 
-Once we have all the necessary components, we proceed to simulate the suitability layer for our target species (*LAMBDA*, which will show the spatial distribution pattern of our species). To do this, we use a **Generalized Linear Model (GLM)**. For this example, we have considered the temperature, precipitation, and vegetation predictor layers as independent variables, but we could also use the bioclimatic layers we have created, other layers we might want to create, or even existing layers that have been adjusted with the same attributes. It is also important to note that when simulating this *LAMBDA*, different weights can be applied to each variable, as demonstrated in another vignette available on GitHub, [Ferrer-Ferrando et. al., 2025, Ecography example](https://github.com/ptarroso/ecoforge/tree/main/vignettes/Ferrer-Ferrando_etal_Ecography%20example){.uri}.
+Once we have all the necessary components, we proceed to simulate the suitability layer for our target species (*LAMBDA*, which will show the spatial distribution pattern of our species). To do this, we use a **Generalized Linear Model (GLM)**. For this example, we have considered the temperature, precipitation, and vegetation predictor layers as independent variables, but we could also use the bioclimatic layers we have created, other layers we might want to create, or even existing layers that have been adjusted with the same attributes. It is also important to note that when simulating this *LAMBDA*, different weights can be applied to each variable, as demonstrated in another vignette available on GitHub, [Ferrer-Ferrando et. al., 2025, Ecography example](https://natureprotectiondff.github.io/Ecoforge-R-package/vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html){.uri}.
 
 ```{r}
 #| label: Create Lambda
 LAM <- 0.5*clim_std$temp + 0.5*clim_std$prec + 0.5*vegt_std + r_error
 
 plot(LAM, col= cols)
-hist(LAM)
+hist(LAM, main="LAMBDA")
 ```
 
-However, we see that this result shows both negative and positive values, and follows a normal distribution (many intermediate values and few values at the extremes). For this reason, we have developed the `logistic()` function, which performs a logistic transformation on this distribution. With this transformation, we are able to address both issues: 1) We can define the range of values that LAMBDA takes, starting at zero and setting the maximum value we want (`L`; in this example, we have set it to 1); 2) And we can better highlight the optimal areas from the less optimal ones, obtaining more values at the extremes and fewer in the center (in this example, considering a scenario with many zeros and low values, and the rest more uniform). This second part can be adjusted using two components: the point of inflection `x0`, and the softness of the curve `k`.
+However, we see that this result shows both negative and positive values for *LAMBDA*, and follows a normal distribution (many intermediate values and few values at the extremes). For this reason, we have developed the `logistic()` function, which performs a logistic transformation on this distribution. With this transformation, we are able to address both issues: 1) We can define the range of values that LAMBDA takes, starting at zero and setting the maximum value we want (`L`; in this example, we have set it to 1); 2) And we can better highlight the optimal areas from the less optimal ones, obtaining more values at the extremes and fewer in the center (in this example, considering a scenario with many zeros and low values, and the rest more uniform). This second part can be adjusted using two components: the point of inflection `x0`, and the softness of the curve `k`.
 
 ```{r}
 #| label: Transform logistic distribution
@@ -276,10 +279,10 @@ LAM_lgt <- logistic(LAM, x0 = 0.5, L = 1, k = 2)
 
 par(mfrow = c(1,1))
 plot(LAM[], LAM_lgt[]) #visualize the relationship between original and transformed data
-hist(LAM_lgt)
+hist(LAM_lgt, main="LAMBDA")
 ```
 
-The point of inflection `x0` refers to the value within the range where the curve of the logistic function changes. With this transformation, we can also obtain species with higher or lower tolerance. For example, low tolerance may represent specialist species (with narrow suitable conditions), whereas high tolerance may represent generalist species (with broader suitable conditions).
+The point of inflection `x0` refers to the value within the range where the curve of the logistic function changes. With this transformation, we can also obtain species with higher or lower range of suitable conditions. For example, small range may represent specialist species (with narrow suitable conditions), whereas wide range may represent generalist species (with broader suitable conditions).
 
 ```{r}
 #| label: Specialist/Generalist example
@@ -352,9 +355,9 @@ plot(LAM_lgt, main="Logistic LAMBDA", col= cols)
 plot(LAM_lgt_R, main="Logistic LAMBDA Rounded", col= cols)
 ```
 
-## 4. Obtain Data
+## 4. Generate the species' distribution
 
-In this section, our goal is to obtain data in point format, representing individuals of the species in our study area.
+In this section, our goal is to generate the species' distribution in point format, representing individuals of the species in our study area.
 
 ### 4.1 Generate individual presences
 
@@ -452,7 +455,7 @@ plot(LAM_lgt_R, main="Percentage selected based on city prox", col= cols)
 points(samp_ppp, cex = 0.3, pch=19, col='blue')
 ```
 
-## 5. Sampling the Study Area
+## 5. Sample the species' distribution on the study area
 
 In this section, we will determine the sampling points and prepare the databases we are going to use for subsequent analyses. To do this, we start by assigning the points in our study area where samples are to be taken.
 
@@ -502,7 +505,7 @@ Once we have determined the sampling points, we move on to [collecting the data 
 
 #### 5.2.1 Point Sampling Method
 
-For this type of sampling, we have the `pointSample()` function, which allows us to [collect information from each unit as a fixed point]{.underline} (for example, as if it were a camera trap or fixed observation points). With this function, you must specify the points you want to sample `sites`, the location of the individuals to be sampled `obs`, and the detection radius `radius`. The function saves a matrix with the individuals as rows and the sampling units as columns, assigning the Euclidean distance from each individual to each sampling unit if it is less than the detection range.
+For this type of sampling, we have the `pointSample()` function, which allows us to [collect information from each unit as a fixed point]{.underline} (for example, as if it were a camera trap or fixed observation points). With this function, you must specify the points you want to sample `sites`, the location of the individuals to be sampled `occ`, and the detection radius `radius`. The function saves a matrix with the individuals as rows and the sampling units as columns, assigning the Euclidean distance from each individual to each sampling unit if it is less than the detection range.
 
 ```{r}
 #| label: Determine euclidean point sampling
@@ -510,18 +513,24 @@ For this type of sampling, we have the `pointSample()` function, which allows us
 occus <- data.frame(occurs$x, occurs$y)
 
 #Obtain the individual locations (with euclidean distance) for all the sampled points used (sam_units), with a detection range of 2.5 units
-point_samp <- pointSample(sites = sam_units, obs = occus, radius = 2.5)
+point_samp <- pointSample(sites = sam_units, occ = occus, radius = 2.5)
 ```
 
-Once we have these matrix with the individuals detected per sampled point and their distances, we save all this information in a [data frame with the ocurrence ID (the individual detected on the sampling point), the survey ID (the sampling point unit), and the distance of the detection]{.underline}. This type of data can be used for distance sampling models or hierarchical models, and the data could be weighted based on this distance value.
+Once we have these matrix with the individuals detected per sampled point and their distances, we save all this information in a [data frame with the occurrence ID (the individual detected on the sampling point), the survey ID (the sampling point unit), and the distance of the detection]{.underline}. This type of data can be used for distance sampling models or hierarchical models, and the data could be weighted based on this distance value.
 
 ```{r}
 #| label: Point dataframe
-samp_df <- as.data.frame(as.table(point_samp))
-colnames(samp_df) <- c("occurrences", "sample_id", "distance")
 
-#keep only the occurrences detected and measured the distance
-clear_df <- na.omit(samp_df)
+# Get row (occurrence) and column (site) indices with non-NA distances
+dist_mat <- point_samp$distance
+idx <- which(!is.na(dist_mat), arr.ind = TRUE)
+
+clear_df <- data.frame(
+  occurrences = idx[, 1],        # row index = occurrence ID
+  sample_id   = idx[, 2],        # col index = site ID
+  distance    = dist_mat[idx]    # distance value
+)
+
 head(clear_df, 10)
 ```
 
@@ -529,8 +538,8 @@ However, if you want to directly access a [data frame containing the number of a
 
 ```{r}
 #| label: Join point detections
-ABN_samp <- countOcc(dmat = point_samp)
-head(ABN_samp)
+pABN_samp <- countOcc(dmat = point_samp$distance)
+head(pABN_samp)
 
 ```
 
@@ -545,7 +554,7 @@ points(sam_units, cex=2.5, pch=21, col='red', bg = NULL)
 detrange <- 2.5 #determine the detection range of the transect
 
 for (i in 1:400) {
-  d <- point_samp[,i]
+  d <- point_samp$distance[,i]
   msk <- !is.na(d)
   col <- as.integer(cut(d[msk], seq(0, detrange, length.out=5)))
   points(occurs[msk,], pch=16, cex=0.6, col=rainbow(10)[col]) 
@@ -562,7 +571,7 @@ points(occurs, cex=0.4, asp=1, col = "blue")
 
 points(sam_units, cex=5, pch=21, col='red', bg = NULL)
 for (i in 1:400) {
-  d <- point_samp[,i]
+  d <- point_samp$distance[,i]
   msk <- !is.na(d)
   col <- as.integer(cut(d[msk], seq(0, detrange, length.out=5)))
   points(occurs[msk,], pch=16, cex=0.6, col=rainbow(10)[col]) 
@@ -585,28 +594,32 @@ tlength <- 5 #determine the legth of the transect
 detrange <- 2.5 #determine the detection range of the transect
 
 #Obtain the individual locations (with euclidean distance) for all the sampled transects used (sam_units)
-transect_samp <- transectSample(sites = sampling, obs = occus, tlen = tlength, drng = detrange)
+transect_samp <- transectSample(sites = sampling, occ = occus, tlen = tlength, drng = detrange)
 ```
 
 Once we have these matrix with the individuals detected per sampled point and their distances, we can do the same thing as we did with fixed points, save all this information in a [data frame with the occurrence ID, the survey ID, and the distance of the detection]{.underline}. As well as being used for distance sampling models or hierarchical models.
 
-```{r, cache=TRUE}
+```{r}
 #| label: Transect samples dataframe
-detrange <- 2.5
-tsamp_df <- as.data.frame(as.table(transect_samp$distance))
-colnames(tsamp_df) <- c("occurrences", "sample_id", "distance")
 
-#keep only the occurrences detected and measured the distance
-tclear_df <- na.omit(tsamp_df)
-head(tclear_df, 10)
+# Get row (occurrence) and column (site) indices with non-NA distances
+dist_mat <- transect_samp$distance
+idx <- which(!is.na(dist_mat), arr.ind = TRUE)
+
+clear_df <- data.frame(
+  occurrences = idx[, 1],        # row index = occurrence ID
+  sample_id   = idx[, 2],        # col index = site ID
+  distance    = dist_mat[idx]    # distance value
+)
+
+head(clear_df, 10)
 ```
 
 We can also obtain the [data frame containing the number of animals detected per sampling unit]{.underline} for this type of sampling procedure. By considering the `countOcc()` function, to which, in this case, the result of the `transectSample()` function is passed directly.
 
 ```{r}
-#| label: Join transect samples units
-tABN_samp <- data.frame(table(tclear_df$sample_id))
-names(tABN_samp) <- c("SampleID", "Abundance")
+#| label: Join transect detections
+tABN_samp <- countOcc(dmat = transect_samp$distance)
 head(tABN_samp)
 ```
 
@@ -614,7 +627,7 @@ Here we present the figure to better understand what kind of data we are collect
 
 ```{r}
 #| label: Visualize transect samples
-#| eval: false
+#| eval: true
 plot(occurs, cex=0.2, asp=1)
 points(sampling, cex=0.5, pch=16, col='red')
 
@@ -631,13 +644,11 @@ for (i in 1:ns) {
 
 ```
 
-![](images/visualization_transect_2.png){fig-align="center"}
-
 Secondly, the figure with zoom, to visualize better.
 
 ```{r}
 #| label: Visualize transect samples zoom
-#| eval: false
+#| eval: true
 ampl <- terra::ext(50, 100, 50, 100)
 zoom(LAM_lgt_R, ampl, col= cols)
 points(occurs, cex=0.4, asp=1, col = "blue")
@@ -653,15 +664,13 @@ for (i in 1:ns) {
 }
 ```
 
-![](images/00003f-01.png){fig-align="center"}
-
 ### 5.3 Transform abundance into presence/absence data
 
 Not always we are interested in obtaining counts, we could prefer or need presence/absence data, or detections considering imperfect detections. In this section, we present the function `abundance2pres()`. With this function it is possible to [transform the abundance values obtained in the previous sections to detections (detected/not-detected binomial value per sampled unit)]{.underline}. The functions takes into account the imperfect detection per individual, so higher the number of individuals per sampled unit, higher the probability that detect at least one individual on the sampled unit. For this example, we will use the abundance values obtained on the *5.2.1 section*.
 
 ```{r}
 #| label: Transform to presence values
-abun <- ABN_samp #Abundance values dataset used as initial dataframe
+abun <- pABN_samp #Abundance values dataset used as initial dataframe
 ipd <- 0.5 #Probability of individual detection
 
 sample_prove <- abundance2pres(abun, ipd)
@@ -754,14 +763,15 @@ legend("topright", inset = c(-0.05, 0.35),
 mtext('Detection Values', cex = 1.5, side = 4, line = 0.5)
 ```
 
-## 6. Save datasets
+## 6. Export the simulated data
 
-In this section, we will show you how to save the various layers and data sets that have been created in this vignette. But before running the following code, make sure to set your working directory using `setwd()`.
+In this section, we will show you how to save and export the various layers and data sets that have been created in this vignette. But before running the following code, make sure where is your working directory using `here()`. If you want to change, modify with `setwd()`.
 
 ```{r}
-#| label: Define directory to save
+#| label: Ckeck and define directory to save
 #| include: false
-setwd("C:/Users/david/OneDrive - Universidad de Castilla-La Mancha/DOCTORADO UCLM/COLABORACIONES/PEDRO-TELLE/Paquete_ECOFORGE")
+library(here)
+here()
 ```
 
 ### 6.1 Save Sampled data
@@ -771,8 +781,7 @@ We start saving the data frame with all the information obtained in the samples 
 ```{r}
 #| label: Save obtained data
 #Create a folder for this layer
-base <- getwd()
-savepath <- file.path(base, "Data_created")
+savepath <- file.path(here("Data_created"))
 if (!dir.exists(savepath)) {
   dir.create(savepath, recursive=TRUE)
   print(paste("Creating directory", savepath))
@@ -780,7 +789,7 @@ if (!dir.exists(savepath)) {
   print("Directory already exists. Overwriting.")
 }
 
-write.table(sampling_units, 'Data_created/sampling_units.csv', row.names = FALSE, sep = ",")
+write.table(sampling_units, here('Data_created/sampling_units.csv'), row.names = FALSE, sep = ",")
 
 ```
 
@@ -792,7 +801,7 @@ final_data <- sampling_units[sampling_units$occurrences == 1,]
 final_data <- data.frame(final_data[,c(1,2)])
 h <- data.frame(ID = cbind(c(rep.int("Virtual_Species", nrow(final_data)))))
 final_data <- list(ID=h, x=final_data$x, y=final_data$y)
-write.table(final_data, "Data_created/occ_virtualspecies.csv", row.names = FALSE, sep = ",")
+write.table(final_data, here("Data_created/occ_virtualspecies.csv"), row.names = FALSE, sep = ",")
 
 ```
 
@@ -802,7 +811,7 @@ We continue saving the suitability layer, which has been used to determine the d
 
 ```{r}
 #| label: Save expected abundance
-terra::writeRaster(LAM_lgt_R, "Data_created/Expected_abundance.asc", NAflag = -9999, overwrite=TRUE)
+terra::writeRaster(LAM_lgt_R, here("Data_created/Expected_abundance.asc"), NAflag = -9999, overwrite=TRUE)
 ```
 
 ### 6.3 Save BIOS layers for the analysis
@@ -814,8 +823,7 @@ Previously we have standardized the BIOS layers, now we save all of them changed
 bv_post <-  bv_std + abs(min(bv_std)) + 1
 
 #Create a folder for this layers
-base <- getwd()
-savepath <- file.path(base, "Data_created/BIOS")
+savepath <- file.path(here("Data_created/BIOS"))
 if (!dir.exists(savepath)) {
   dir.create(savepath, recursive=TRUE)
   print(paste("Creating directory", savepath))
@@ -826,7 +834,7 @@ if (!dir.exists(savepath)) {
 #Save all the BIO rasters with format ASCII
 for (i in 1:19) {
   route_rst<-paste("Data_created/BIOS/BIO",i,"_post.asc", sep="")
-  writeRaster(bv_post[[i]], route_rst, overwrite= TRUE)
+  writeRaster(bv_post[[i]], here(route_rst), overwrite= TRUE)
 }
 ```
 
@@ -839,8 +847,7 @@ We save the layers at 20x20 units resolution.
 bv_post <-  bv20_std + abs(min(bv20_std)) + 1
 
 #Create a folder for this layers
-base <- getwd()
-savepath <- file.path(base, "Data_created/20BIOS")
+savepath <- file.path(here("Data_created/20BIOS"))
 if (!dir.exists(savepath)) {
   dir.create(savepath, recursive=TRUE)
   print(paste("Creating directory", savepath))
@@ -851,7 +858,7 @@ if (!dir.exists(savepath)) {
 #Save all the BIO rasters with format ASCII
 for (i in 1:19) {
   route_rst<-paste("Data_created/20BIOS/20BIO",i,"_post.asc", sep="")
-  writeRaster(bv_post[[i]], route_rst, overwrite= TRUE)
+  writeRaster(bv_post[[i]], here(route_rst), overwrite= TRUE)
 }
 ```
 
@@ -862,8 +869,7 @@ And continue with the layers at 40x40 units resolution.
 bv_post <-  bv40_std + abs(min(bv40_std)) + 1
 
 #Create a folder for this layers
-base <- getwd()
-savepath <- file.path(base, "Data_created/40BIOS")
+savepath <- file.path(here("Data_created/40BIOS"))
 if (!dir.exists(savepath)) {
   dir.create(savepath, recursive=TRUE)
   print(paste("Creating directory", savepath))
@@ -874,7 +880,7 @@ if (!dir.exists(savepath)) {
 #Save all the BIO rasters with format ASCII
 for (i in 1:19) {
   route_rst<-paste("Data_created/40BIOS/40BIO",i,"_post.asc", sep="")
-  writeRaster(bv_post[[i]], route_rst, overwrite= TRUE)
+  writeRaster(bv_post[[i]], here(route_rst), overwrite= TRUE)
 }
 ```
 
@@ -887,8 +893,7 @@ Original high resolution layer.
 ```{r}
 #| label: Save vegetation layer
 #Create a folder for this layer
-base <- getwd()
-savepath <- file.path(base, "Data_created/VEG")
+savepath <- file.path(here("Data_created/VEG"))
 if (!dir.exists(savepath)) {
   dir.create(savepath, recursive=TRUE)
   print(paste("Creating directory", savepath))
@@ -897,7 +902,7 @@ if (!dir.exists(savepath)) {
 }
 
 #Save the VEG raster with format ASCII
-writeRaster(vegt_std, "Data_created/VEG/VEGETATION.asc", overwrite=TRUE)
+writeRaster(vegt_std, here("Data_created/VEG/VEGETATION.asc"), overwrite=TRUE)
 ```
 
 Layer at 20x20 units resolution.
@@ -905,8 +910,7 @@ Layer at 20x20 units resolution.
 ```{r}
 #| label: Save 20 vegetation layer
 #Create a folder for this layer
-base <- getwd()
-savepath <- file.path(base, "Data_created/20VEG")
+savepath <- file.path(here("Data_created/20VEG"))
 if (!dir.exists(savepath)) {
   dir.create(savepath, recursive=TRUE)
   print(paste("Creating directory", savepath))
@@ -915,7 +919,7 @@ if (!dir.exists(savepath)) {
 }
 
 #Save the VEG raster with format ASCII
-writeRaster(vegt20_std, "Data_created/20VEG/20VEGETATION.asc", overwrite=TRUE)
+writeRaster(vegt20_std, here("Data_created/20VEG/20VEGETATION.asc"), overwrite=TRUE)
 ```
 
 Layer at 40x40 units resolution.
@@ -923,8 +927,7 @@ Layer at 40x40 units resolution.
 ```{r}
 #| label: Save 40 vegetation layer
 #Create a folder for this layer
-base <- getwd()
-savepath <- file.path(base, "Data_created/40VEG")
+savepath <- file.path(here("Data_created/40VEG"))
 if (!dir.exists(savepath)) {
   dir.create(savepath, recursive=TRUE)
   print(paste("Creating directory", savepath))
@@ -933,7 +936,7 @@ if (!dir.exists(savepath)) {
 }
 
 #Save the VEG raster with format ASCII
-writeRaster(vegt40_std, "Data_created/40VEG/40VEGETATION.asc", overwrite=TRUE)
+writeRaster(vegt40_std, here("Data_created/40VEG/40VEGETATION.asc"), overwrite=TRUE)
 ```
 
 ### 6.5 Save original climate variable (Temperature and Precipitation)
@@ -943,8 +946,7 @@ And finally, we do the same with the layers related with climate (temperature an
 ```{r}
 #| label: Save original climate layer
 #Create a folder for this layer
-base <- getwd()
-savepath <- file.path(base, "Data_created/CLIM")
+savepath <- file.path(here("Data_created/CLIM"))
 if (!dir.exists(savepath)) {
   dir.create(savepath, recursive=TRUE)
   print(paste("Creating directory", savepath))
@@ -953,8 +955,8 @@ if (!dir.exists(savepath)) {
 }
 
 #Save the VEG raster with format ASCII
-writeRaster(clim_std$temp, "Data_created/CLIM/TEMEPRATURE.asc", overwrite=TRUE)
-writeRaster(clim_std$prec, "Data_created/CLIM/PRECIPITATION.asc", overwrite=TRUE)
+writeRaster(clim_std$temp, here("Data_created/CLIM/TEMEPRATURE.asc"), overwrite=TRUE)
+writeRaster(clim_std$prec, here("Data_created/CLIM/PRECIPITATION.asc"), overwrite=TRUE)
 ```
 
 ## 7. Creating a dendrogram. Correlation between covariates
