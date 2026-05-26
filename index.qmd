@@ -1,6 +1,6 @@
 ---
 title: "Ecoforge R package"
-author: "David Ferrer Ferrando & Pedro Tarroso"
+author: "David Ferrer Ferrando, Pelayo Acevedo & Pedro Tarroso"
 ---
 
 ::: {style="overflow: hidden; margin-bottom: 1.5rem;"}
@@ -72,7 +72,7 @@ Ecoforge functions are organized following the logical steps of a virtual ecolog
 Functions to generate modulated spatially autocorrelated environmental variables using Gaussian simulations with a Spherical model.
 
 | Function | Description |
-|----|----|
+|--------------------------------|----------------------------------------|
 | [`generateVar()`](reference/generateVar.html) | Generates a single variable (e.g. vegetation, terrain) with modulated spatial autocorrelation |
 | [`generateClim()`](reference/generateClim.html) | Generates a full climate dataset including temperature and precipitation with modulated spatial autocorrelation |
 | [`generateMonthlyTemp()`](reference/generateMonthlyTemp.html) | Derives monthly minimum, average and maximum temperature from annual data, based on 'generateClim()' output |
@@ -83,7 +83,7 @@ Functions to generate modulated spatially autocorrelated environmental variables
 Utility functions to rescale or transform variables and suitabilty patterns before using them to generate species' data.
 
 | Function | Description |
-|----|----|
+|--------------------------------|----------------------------------------|
 | [`scale01()`](reference/scale01.html) | Linearly rescales any variable to the \[0, 1\] range |
 | [`logistic()`](reference/logistic.html) | Applies a logistic transformation to control distibution of data frequency |
 
@@ -92,7 +92,7 @@ Utility functions to rescale or transform variables and suitabilty patterns befo
 Generates virtual species occurrences in space based on a suitability layer, simulating an inhomogeneous Poisson point process.
 
 | Function | Description |
-|----|----|
+|--------------------------------|----------------------------------------|
 | [`generatePoints()`](reference/generatePoints.html) | Distributes individuals as points across the landscape according to habitat suitability |
 
 ### Sampling data (I)
@@ -100,7 +100,7 @@ Generates virtual species occurrences in space based on a suitability layer, sim
 Functions to first define survey locations and and then simulate field sampling procedures, returning detection distances for each individual inside the detection area of the sampling unit.
 
 | Function | Description |
-|----|----|
+|--------------------------------|----------------------------------------|
 | [`uniformSamp()`](reference/uniformSamp.html) | Places survey sites on a regular systematic grid |
 | [`randomSamp()`](reference/randomSamp.html) | Places survey sites at random positions within a grid |
 | [`pointSample()`](reference/pointSample.html) | Simulates point count surveys within a detection radius |
@@ -111,7 +111,7 @@ Functions to first define survey locations and and then simulate field sampling 
 Functions to convert raw sampling output (distances for each individual inside the detection area) into formats ready for the models to be applied.
 
 | Function | Description |
-|----|----|
+|--------------------------------|----------------------------------------|
 | [`countOcc()`](reference/countOcc.html) | Counts of detected individuals per survey site |
 | [`abundance2pres()`](reference/abundance2pres.html) | Converts abundance counts to presence/absence considering imperfect detection |
 

@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="David Ferrer Ferrando &amp; Pedro Tarroso">
+<meta name="author" content="David Ferrer Ferrando, Pelayo Acevedo &amp; Pedro Tarroso">
 
 <title>Ecoforge R package</title>
 <style>
@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>David Ferrer Ferrando &amp; Pedro Tarroso </p>
+             <p>David Ferrer Ferrando, Pelayo Acevedo &amp; Pedro Tarroso </p>
           </div>
   </div>
     
@@ -987,7 +987,7 @@ An R package with a set of tools for simulating spatial data: ecological environ
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Ecoforge R package"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "David Ferrer Ferrando &amp; Pedro Tarroso"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "David Ferrer Ferrando, Pelayo Acevedo &amp; Pedro Tarroso"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>::: {style="overflow: hidden; margin-bottom: 1.5rem;"}</span>
@@ -1059,7 +1059,7 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>Functions to generate modulated spatially autocorrelated environmental variables using Gaussian simulations with a Spherical model.</span>
 <span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|----|----|</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
 <span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`generateVar()`</span><span class="co">](reference/generateVar.html)</span> <span class="pp">|</span> Generates a single variable (e.g. vegetation, terrain) with modulated spatial autocorrelation <span class="pp">|</span></span>
 <span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`generateClim()`</span><span class="co">](reference/generateClim.html)</span> <span class="pp">|</span> Generates a full climate dataset including temperature and precipitation with modulated spatial autocorrelation <span class="pp">|</span></span>
 <span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`generateMonthlyTemp()`</span><span class="co">](reference/generateMonthlyTemp.html)</span> <span class="pp">|</span> Derives monthly minimum, average and maximum temperature from annual data, based on 'generateClim()' output <span class="pp">|</span></span>
@@ -1070,7 +1070,7 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>Utility functions to rescale or transform variables and suitabilty patterns before using them to generate species' data.</span>
 <span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|----|----|</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
 <span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`scale01()`</span><span class="co">](reference/scale01.html)</span> <span class="pp">|</span> Linearly rescales any variable to the <span class="sc">\[</span>0, 1<span class="sc">\]</span> range <span class="pp">|</span></span>
 <span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`logistic()`</span><span class="co">](reference/logistic.html)</span> <span class="pp">|</span> Applies a logistic transformation to control distibution of data frequency <span class="pp">|</span></span>
 <span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
@@ -1079,7 +1079,7 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>Generates virtual species occurrences in space based on a suitability layer, simulating an inhomogeneous Poisson point process.</span>
 <span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|----|----|</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
 <span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`generatePoints()`</span><span class="co">](reference/generatePoints.html)</span> <span class="pp">|</span> Distributes individuals as points across the landscape according to habitat suitability <span class="pp">|</span></span>
 <span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sampling data (I)</span></span>
@@ -1087,7 +1087,7 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>Functions to first define survey locations and and then simulate field sampling procedures, returning detection distances for each individual inside the detection area of the sampling unit.</span>
 <span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|----|----|</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
 <span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`uniformSamp()`</span><span class="co">](reference/uniformSamp.html)</span> <span class="pp">|</span> Places survey sites on a regular systematic grid <span class="pp">|</span></span>
 <span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`randomSamp()`</span><span class="co">](reference/randomSamp.html)</span> <span class="pp">|</span> Places survey sites at random positions within a grid <span class="pp">|</span></span>
 <span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`pointSample()`</span><span class="co">](reference/pointSample.html)</span> <span class="pp">|</span> Simulates point count surveys within a detection radius <span class="pp">|</span></span>
@@ -1098,7 +1098,7 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>Functions to convert raw sampling output (distances for each individual inside the detection area) into formats ready for the models to be applied.</span>
 <span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|----|----|</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
 <span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`countOcc()`</span><span class="co">](reference/countOcc.html)</span> <span class="pp">|</span> Counts of detected individuals per survey site <span class="pp">|</span></span>
 <span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`abundance2pres()`</span><span class="co">](reference/abundance2pres.html)</span> <span class="pp">|</span> Converts abundance counts to presence/absence considering imperfect detection <span class="pp">|</span></span>
 <span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
