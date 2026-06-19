@@ -15,7 +15,7 @@ toc: true
 ::::: {style="display: flex; align-items: center; justify-content: space-between;"}
 <div>
 
-<h1>Ecoforge_Rpackage example</h1>
+<h1>ecoforge_Rpackage example</h1>
 
 <p><strong>Authors</strong><br> David Ferrer Ferrando, Pelayo Acevedo & Pedro Tarroso</p>
 
@@ -36,7 +36,7 @@ toc: true
 
 \begin{minipage}[t]{0.55\textwidth}
 \vspace{0pt}
-{\LARGE \textbf{Ecoforge\_Rpackage}} \\[0.3cm]
+{\LARGE \textbf{ecoforge\_Rpackage}} \\[0.3cm]
 
 \textbf{Authors} \\
 David Ferrer Ferrando, Pelayo Acevedo \& Pedro Tarroso \\
@@ -58,13 +58,13 @@ David Ferrer Ferrando, Pelayo Acevedo \& Pedro Tarroso \\
 
 ------------------------------------------------------------------------
 
-# Case Study: Simulating virtual species and sampling designs with the Ecoforge package
+# Case Study: Simulating virtual species and sampling designs with the ecoforge package
 
-In this vignette we present [a complete case study illustrating how to use the *EcoForge* package to build spatially explicit simulations of virtual species]{.underline}. This type of virtual ecology framework is particularly useful for evaluating spatial ecology models (such as species distribution models or occupancy models) under known and controlled conditions. For example evaluating the effect of different sampling strategies on model performance, or generating reproducible synthetic datasets for methodological research in ecology.
+In this vignette we present [a complete case study illustrating how to use the *ecoforge* package to build spatially explicit simulations of virtual species]{.underline}. This type of virtual ecology framework is particularly useful for evaluating spatial ecology models (such as species distribution models or occupancy models) under known and controlled conditions. For example evaluating the effect of different sampling strategies on model performance, or generating reproducible synthetic datasets for methodological research in ecology.
 
 To facilitate the comprehension of the full simulation workflow and the possibilities offered by the package functions, the example is structured in the following steps:
 
-1.  **Install and load the required packages** (Ecoforge and dependencies).
+1.  **Install and load the required packages** (ecoforge and dependencies).
 
 2.  **Generate the environmental spatial layers**, and modify or transform them to define habitat characteristics of the study area.
 
@@ -78,11 +78,11 @@ To facilitate the comprehension of the full simulation workflow and the possibil
 
 7.  **Additional tip** assessing correlation between environmental variables before model fitting.
 
-To see more about *Ecoforge* package (and other *vignettes*) see [Ecoforge website](https://natureprotectiondff.github.io/Ecoforge-R-package/)
+To see more about *ecoforge* package (and other *vignettes*) see [ecoforge website](https://natureprotectiondff.github.io/Ecoforge-R-package/)
 
 ## 1. Getting started
 
-First of all, install and load *Ecoforge* package and all the dependencies required for the correct function of these simulations.
+First of all, install and load *ecoforge* package and all the dependencies required for the correct function of these simulations.
 
 ```{r}
 #| label: Charge packages
@@ -107,7 +107,7 @@ These functions let us control and determine some parameter values that define s
 
 ### 2.1 Climate variables
 
-We start creating clime conditions. To do this, we have a first function `generateClim()` that allows us to create climate variables (in this case, temperature and precipitation). When creating these variables, several parameters can be controlled, such as the mean value `Tmean & Pmean`, the range of variation `Tsd & Psd`, and the range of spatial autocorrelation `Trange & Prange`. For temperature, daily and annual ranges are also considered `T_amp & T_ar`, both with maximum and minimum range values. Precipitation also follows an annual range `Pav`. Both annual ranges follow a latitudinal gradient: in this case, the higher the latitude, the greater the range. To learn more about the different components of this function (and the following ones), read the description and details of the function available on the website, [Ecoforge Functions reference](https://natureprotectiondff.github.io/Ecoforge-R-package/#functions-reference){.uri}.
+We start creating clime conditions. To do this, we have a first function `generateClim()` that allows us to create climate variables (in this case, temperature and precipitation). When creating these variables, several parameters can be controlled, such as the mean value `Tmean & Pmean`, the range of variation `Tsd & Psd`, and the range of spatial autocorrelation `Trange & Prange`. For temperature, daily and annual ranges are also considered `T_amp & T_ar`, both with maximum and minimum range values. Precipitation also follows an annual range `Pav`. Both annual ranges follow a latitudinal gradient: in this case, the higher the latitude, the greater the range. To learn more about the different components of this function (and the following ones), read the description and details of the function available on the website, [ecoforge Functions reference](https://natureprotectiondff.github.io/Ecoforge-R-package/#functions-reference){.uri}.
 
 ```{r}
 #| label: Create Clime conditions

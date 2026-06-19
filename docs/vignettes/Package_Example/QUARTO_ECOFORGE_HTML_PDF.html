@@ -3480,7 +3480,7 @@ window.onload = function() {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#case-study-simulating-virtual-species-and-sampling-designs-with-the-ecoforge-package" id="toc-case-study-simulating-virtual-species-and-sampling-designs-with-the-ecoforge-package" class="nav-link active" data-scroll-target="#case-study-simulating-virtual-species-and-sampling-designs-with-the-ecoforge-package">Case Study: Simulating virtual species and sampling designs with the Ecoforge package</a>
+  <li><a href="#case-study-simulating-virtual-species-and-sampling-designs-with-the-ecoforge-package" id="toc-case-study-simulating-virtual-species-and-sampling-designs-with-the-ecoforge-package" class="nav-link active" data-scroll-target="#case-study-simulating-virtual-species-and-sampling-designs-with-the-ecoforge-package">Case Study: Simulating virtual species and sampling designs with the ecoforge package</a>
   <ul class="collapse">
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">1. Getting started</a></li>
   <li><a href="#generate-the-environmental-spatial-layers" id="toc-generate-the-environmental-spatial-layers" class="nav-link" data-scroll-target="#generate-the-environmental-spatial-layers">2. Generate the environmental spatial layers</a>
@@ -3523,7 +3523,7 @@ window.onload = function() {
 <div style="display: flex; align-items: center; justify-content: space-between;">
 <div>
 <h1>
-Ecoforge_Rpackage example
+ecoforge_Rpackage example
 </h1>
 <p>
 <strong>Authors</strong><br> David Ferrer Ferrando, Pelayo Acevedo &amp; Pedro Tarroso
@@ -3538,11 +3538,11 @@ Ecoforge_Rpackage example
 </div>
 <hr>
 <section id="case-study-simulating-virtual-species-and-sampling-designs-with-the-ecoforge-package" class="level1">
-<h1>Case Study: Simulating virtual species and sampling designs with the Ecoforge package</h1>
-<p>In this vignette we present <u>a complete case study illustrating how to use the <em>EcoForge</em> package to build spatially explicit simulations of virtual species</u>. This type of virtual ecology framework is particularly useful for evaluating spatial ecology models (such as species distribution models or occupancy models) under known and controlled conditions. For example evaluating the effect of different sampling strategies on model performance, or generating reproducible synthetic datasets for methodological research in ecology.</p>
+<h1>Case Study: Simulating virtual species and sampling designs with the ecoforge package</h1>
+<p>In this vignette we present <u>a complete case study illustrating how to use the <em>ecoforge</em> package to build spatially explicit simulations of virtual species</u>. This type of virtual ecology framework is particularly useful for evaluating spatial ecology models (such as species distribution models or occupancy models) under known and controlled conditions. For example evaluating the effect of different sampling strategies on model performance, or generating reproducible synthetic datasets for methodological research in ecology.</p>
 <p>To facilitate the comprehension of the full simulation workflow and the possibilities offered by the package functions, the example is structured in the following steps:</p>
 <ol type="1">
-<li><p><strong>Install and load the required packages</strong> (Ecoforge and dependencies).</p></li>
+<li><p><strong>Install and load the required packages</strong> (ecoforge and dependencies).</p></li>
 <li><p><strong>Generate the environmental spatial layers</strong>, and modify or transform them to define habitat characteristics of the study area.</p></li>
 <li><p><strong>Define the target species’ habitat suitability</strong>, combining environmental layers to build a spatial suitability surface.</p></li>
 <li><p><strong>Generate the species’ distribution</strong>, placing individuals across the study area according to habitat suitability, and optionally introducing possible distribution bias.</p></li>
@@ -3550,10 +3550,10 @@ Ecoforge_Rpackage example
 <li><p><strong>Export the simulated data</strong> in formats ready for use in ecological models.</p></li>
 <li><p><strong>Additional tip</strong> assessing correlation between environmental variables before model fitting.</p></li>
 </ol>
-<p>To see more about <em>Ecoforge</em> package (and other <em>vignettes</em>) see <a href="https://natureprotectiondff.github.io/Ecoforge-R-package/">Ecoforge website</a></p>
+<p>To see more about <em>ecoforge</em> package (and other <em>vignettes</em>) see <a href="https://natureprotectiondff.github.io/Ecoforge-R-package/">ecoforge website</a></p>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">1. Getting started</h2>
-<p>First of all, install and load <em>Ecoforge</em> package and all the dependencies required for the correct function of these simulations.</p>
+<p>First of all, install and load <em>ecoforge</em> package and all the dependencies required for the correct function of these simulations.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;dismo&quot;)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;fields&quot;)</span></span>
@@ -3571,7 +3571,7 @@ Ecoforge_Rpackage example
 <p>These functions let us control and determine some parameter values that define spatial variables. Inside of these functions, we employ a previous developed function <code>gstat()</code> of the package <strong>gstat</strong>.</p>
 <section id="climate-variables" class="level3">
 <h3 class="anchored" data-anchor-id="climate-variables">2.1 Climate variables</h3>
-<p>We start creating clime conditions. To do this, we have a first function <code>generateClim()</code> that allows us to create climate variables (in this case, temperature and precipitation). When creating these variables, several parameters can be controlled, such as the mean value <code>Tmean &amp; Pmean</code>, the range of variation <code>Tsd &amp; Psd</code>, and the range of spatial autocorrelation <code>Trange &amp; Prange</code>. For temperature, daily and annual ranges are also considered <code>T_amp &amp; T_ar</code>, both with maximum and minimum range values. Precipitation also follows an annual range <code>Pav</code>. Both annual ranges follow a latitudinal gradient: in this case, the higher the latitude, the greater the range. To learn more about the different components of this function (and the following ones), read the description and details of the function available on the website, <a href="https://natureprotectiondff.github.io/Ecoforge-R-package/#functions-reference" class="uri">Ecoforge Functions reference</a>.</p>
+<p>We start creating clime conditions. To do this, we have a first function <code>generateClim()</code> that allows us to create climate variables (in this case, temperature and precipitation). When creating these variables, several parameters can be controlled, such as the mean value <code>Tmean &amp; Pmean</code>, the range of variation <code>Tsd &amp; Psd</code>, and the range of spatial autocorrelation <code>Trange &amp; Prange</code>. For temperature, daily and annual ranges are also considered <code>T_amp &amp; T_ar</code>, both with maximum and minimum range values. Precipitation also follows an annual range <code>Pav</code>. Both annual ranges follow a latitudinal gradient: in this case, the higher the latitude, the greater the range. To learn more about the different components of this function (and the following ones), read the description and details of the function available on the website, <a href="https://natureprotectiondff.github.io/Ecoforge-R-package/#functions-reference" class="uri">ecoforge Functions reference</a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>clim <span class="ot">&lt;-</span> <span class="fu">generateClim</span>(<span class="at">nrow=</span><span class="dv">200</span>, <span class="at">ncol=</span><span class="dv">200</span>, <span class="at">Tmean=</span><span class="dv">15</span>, <span class="at">Tsd=</span><span class="dv">4</span>, <span class="at">Trange=</span><span class="dv">45</span>, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Tamp_max=</span><span class="dv">10</span>, <span class="at">Tamp_min=</span><span class="dv">1</span>, <span class="at">Tar_max=</span><span class="dv">10</span>, <span class="at">Tar_min=</span><span class="dv">5</span>,</span>
