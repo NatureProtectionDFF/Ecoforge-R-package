@@ -8,7 +8,7 @@
 
 <meta name="author" content="David Ferrer Ferrando, Pelayo Acevedo &amp; Pedro Tarroso">
 
-<title>Ecoforge R package</title>
+<title>ecoforge R package – Ecoforge R package</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -277,16 +277,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-is-ecoforge" id="toc-what-is-ecoforge" class="nav-link active" data-scroll-target="#what-is-ecoforge">What is Ecoforge?</a></li>
-  <li><a href="#when-should-i-use-ecoforge" id="toc-when-should-i-use-ecoforge" class="nav-link" data-scroll-target="#when-should-i-use-ecoforge">When should I use Ecoforge?</a></li>
+  <li><a href="#what-is-ecoforge" id="toc-what-is-ecoforge" class="nav-link active" data-scroll-target="#what-is-ecoforge">What is ecoforge?</a></li>
+  <li><a href="#when-should-i-use-ecoforge" id="toc-when-should-i-use-ecoforge" class="nav-link" data-scroll-target="#when-should-i-use-ecoforge">When should I use ecoforge?</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#functions-reference" id="toc-functions-reference" class="nav-link" data-scroll-target="#functions-reference">Functions Reference</a>
+  <li><a href="#functions-workflow-and-reference" id="toc-functions-workflow-and-reference" class="nav-link" data-scroll-target="#functions-workflow-and-reference">Functions Workflow and Reference</a>
   <ul class="collapse">
   <li><a href="#create-environment-spatial-pattern" id="toc-create-environment-spatial-pattern" class="nav-link" data-scroll-target="#create-environment-spatial-pattern">Create environment spatial pattern</a></li>
-  <li><a href="#data-transformation" id="toc-data-transformation" class="nav-link" data-scroll-target="#data-transformation">Data transformation</a></li>
-  <li><a href="#create-species-spatial-pattern" id="toc-create-species-spatial-pattern" class="nav-link" data-scroll-target="#create-species-spatial-pattern">Create species spatial pattern</a></li>
-  <li><a href="#sampling-data-i" id="toc-sampling-data-i" class="nav-link" data-scroll-target="#sampling-data-i">Sampling data (I)</a></li>
-  <li><a href="#sampling-data-ii" id="toc-sampling-data-ii" class="nav-link" data-scroll-target="#sampling-data-ii">Sampling data (II)</a></li>
+  <li><a href="#adjust-species-spatial-pattern" id="toc-adjust-species-spatial-pattern" class="nav-link" data-scroll-target="#adjust-species-spatial-pattern">Adjust species’ spatial pattern</a></li>
+  <li><a href="#sample-data" id="toc-sample-data" class="nav-link" data-scroll-target="#sample-data">Sample data</a></li>
+  <li><a href="#data-conversion" id="toc-data-conversion" class="nav-link" data-scroll-target="#data-conversion">Data conversion</a></li>
   </ul></li>
   <li><a href="#available-vignettes" id="toc-available-vignettes" class="nav-link" data-scroll-target="#available-vignettes">Available vignettes</a></li>
   <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">Citation</a></li>
@@ -298,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Ecoforge R package</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">ecoforge R package</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -331,19 +330,19 @@ An R package with a set of tools for simulating spatial data: ecological environ
 </p>
 </div>
 <section id="what-is-ecoforge" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-ecoforge">What is Ecoforge?</h2>
-<p>The purpose of <strong>Ecoforge</strong> is to <u>simulate natural processes in space for subsequent analysis</u>. This package enables you to:</p>
+<h2 class="anchored" data-anchor-id="what-is-ecoforge">What is ecoforge?</h2>
+<p>The purpose of <strong>ecoforge</strong> is to <u>simulate natural processes in space for subsequent analysis</u>. This package enables you to:</p>
 <ol type="1">
 <li><p>Create new spatial environmental layers (predictors)</p></li>
-<li><p>Adjust a spatial suitability layer based on this environmental layers</p></li>
-<li><p>Distribute the species’ individuals around it</p></li>
-<li><p>Obtain sampled data of the species (abundance and detections)</p></li>
+<li><p>Adjust a spatial suitability layer based on this environmental layers, and distribute species’ individuals weighted by this layer</p></li>
+<li><p>Implement different field-based sampling designs</p></li>
+<li><p>Conversion of the sampled data into formats ready for statistical analysis (abundance and presence/absence data)</p></li>
 </ol>
 <p>With an extra example to check the collinearity between variables.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/schedule.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure 1.</strong> Diagram showing the various general areas that this package can address.</figcaption>
+<figcaption><strong>Figure 1.</strong> Diagram showing the various general areas that ecoforge package can address.</figcaption>
 </figure>
 </div>
 <p>It allows researchers to:</p>
@@ -356,11 +355,11 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <p>This website provides all the information and details about the functions included in the package, as well as some examples of complete simulation vignettes.</p>
 </section>
 <section id="when-should-i-use-ecoforge" class="level2">
-<h2 class="anchored" data-anchor-id="when-should-i-use-ecoforge">When should I use Ecoforge?</h2>
-<p><em>EcoForge</em> is particularly useful when controlled and reproducible scenarios are needed. For example:</p>
+<h2 class="anchored" data-anchor-id="when-should-i-use-ecoforge">When should I use ecoforge?</h2>
+<p><em>ecoForge</em> is particularly useful when controlled and reproducible scenarios are needed. For example:</p>
 <ul>
 <li>Testing the performance of spatial models under known conditions</li>
-<li>Evaluating the effect of sampling design on model accuracy</li>
+<li>Evaluating the effect of different possible artefacts, related with sampling design or ecological aspects, on model accuracy</li>
 <li>Teaching and demonstrating concepts in ecological modelling</li>
 </ul>
 </section>
@@ -372,9 +371,9 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ecoforge)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:ecoforge"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="functions-reference" class="level2">
-<h2 class="anchored" data-anchor-id="functions-reference">Functions Reference</h2>
-<p>Ecoforge functions are organized following the logical steps of a virtual ecology workflow. Functions are grouped according to the procedure being carried out: (A) generating the spatial patterns of environmental variables, (B) transforming that information into different ranges or distributions, (C) generating the spatial patterns of the target species, and (D) collecting data from those spatial patterns with different sampling strategies, and preparing them in a format suitable for the models to be applied (Figure 2).</p>
+<section id="functions-workflow-and-reference" class="level2">
+<h2 class="anchored" data-anchor-id="functions-workflow-and-reference">Functions Workflow and Reference</h2>
+<p>ecoforge functions are organized following the logical steps of a virtual ecology workflow. Functions are grouped according to the procedure being carried out: (A) generating the spatial patterns of environmental variables, (B) adjusting that information into a species’ suitability/expected abundance layer, and distributing its individuals within this layer, (C) implementing of different field-based sampling designs to collect data, and (D) conversion of the sampled data into formats ready for statistical analysis (Figure 2). Although the functions are typically chained in this order, each one returns a standard R object (a data frame, a SpatRaster, or a spatstat ‘ppp’ object) and can equally be combined with other packages, or used independently of the rest of the pipeline.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/Functions_diagram2.png" class="img-fluid figure-img"></p>
@@ -383,7 +382,7 @@ An R package with a set of tools for simulating spatial data: ecological environ
 </div>
 <section id="create-environment-spatial-pattern" class="level3">
 <h3 class="anchored" data-anchor-id="create-environment-spatial-pattern">Create environment spatial pattern</h3>
-<p>Functions to generate modulated spatially autocorrelated environmental variables using Gaussian simulations with a Spherical model.</p>
+<p>Functions to generate modulated spatially autocorrelated environmental variables using Gaussian simulations with a Spherical model based on <em>gstat</em> package.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -411,9 +410,9 @@ An R package with a set of tools for simulating spatial data: ecological environ
 </tbody>
 </table>
 </section>
-<section id="data-transformation" class="level3">
-<h3 class="anchored" data-anchor-id="data-transformation">Data transformation</h3>
-<p>Utility functions to rescale or transform variables and suitabilty patterns before using them to generate species’ data.</p>
+<section id="adjust-species-spatial-pattern" class="level3">
+<h3 class="anchored" data-anchor-id="adjust-species-spatial-pattern">Adjust species’ spatial pattern</h3>
+<p>Utility functions to modulate the species’ suitability/expected abundance pattern or rescale values. Also use this spatial pattern to distribute species’ individuals or occurrences within this layer extension, employing an inhomogeneous Poisson point process based on <em>spatstat</em> package.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -430,20 +429,6 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <td><a href="reference/logistic.html"><code>logistic()</code></a></td>
 <td>Applies a logistic transformation to control distibution of data frequency</td>
 </tr>
-</tbody>
-</table>
-</section>
-<section id="create-species-spatial-pattern" class="level3">
-<h3 class="anchored" data-anchor-id="create-species-spatial-pattern">Create species spatial pattern</h3>
-<p>Generates virtual species occurrences in space based on a suitability layer, simulating an inhomogeneous Poisson point process.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
 <tr class="odd">
 <td><a href="reference/generatePoints.html"><code>generatePoints()</code></a></td>
 <td>Distributes individuals as points across the landscape according to habitat suitability</td>
@@ -451,8 +436,8 @@ An R package with a set of tools for simulating spatial data: ecological environ
 </tbody>
 </table>
 </section>
-<section id="sampling-data-i" class="level3">
-<h3 class="anchored" data-anchor-id="sampling-data-i">Sampling data (I)</h3>
+<section id="sample-data" class="level3">
+<h3 class="anchored" data-anchor-id="sample-data">Sample data</h3>
 <p>Functions to first define survey locations and and then simulate field sampling procedures, returning detection distances for each individual inside the detection area of the sampling unit.</p>
 <table class="caption-top table">
 <thead>
@@ -481,9 +466,9 @@ An R package with a set of tools for simulating spatial data: ecological environ
 </tbody>
 </table>
 </section>
-<section id="sampling-data-ii" class="level3">
-<h3 class="anchored" data-anchor-id="sampling-data-ii">Sampling data (II)</h3>
-<p>Functions to convert raw sampling output (distances for each individual inside the detection area) into formats ready for the models to be applied.</p>
+<section id="data-conversion" class="level3">
+<h3 class="anchored" data-anchor-id="data-conversion">Data conversion</h3>
+<p>Functions to convert raw sampling output (distances for each individual inside the detection area) into formats ready for the models to be applied (counts, presence/absence, detections/not detections).</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -513,7 +498,7 @@ An R package with a set of tools for simulating spatial data: ecological environ
 </section>
 <section id="citation" class="level2">
 <h2 class="anchored" data-anchor-id="citation">Citation</h2>
-<p>For now, there is only one article available that uses some of its features as a reference. So if you use EcoForge in your research, please cite this work:</p>
+<p>For now, there is only one article available that uses some of its features as a reference. So if you use <em>ecoForge</em> in your research, please cite this work:</p>
 <ul>
 <li>Ferrer-Ferrando, D., Tarroso, P., Luis Tellería, J., Acevedo, P. and Fernández-López, J. (2025), <em>Disentangling the effect of the spatial scale and species spatial pattern on the abundance–suitability relationship</em>. Ecography, 2025: e07766. https://doi.org/10.1111/ecog.07766</li>
 </ul>
@@ -986,7 +971,7 @@ An R package with a set of tools for simulating spatial data: ecological environ
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Ecoforge R package"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "ecoforge R package"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "David Ferrer Ferrando, Pelayo Acevedo &amp; Pedro Tarroso"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -1002,21 +987,21 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>An R package with a set of tools for simulating spatial data: ecological environments and generate species' counts or presence/absence data for ecological analyses.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is Ecoforge?</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is ecoforge?</span></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>The purpose of **Ecoforge** is to <span class="co">[</span><span class="ot">simulate natural processes in space for subsequent analysis</span><span class="co">]</span>{.underline}. This package enables you to:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>The purpose of **ecoforge** is to <span class="co">[</span><span class="ot">simulate natural processes in space for subsequent analysis</span><span class="co">]</span>{.underline}. This package enables you to:</span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Create new spatial environmental layers (predictors)</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Adjust a spatial suitability layer based on this environmental layers</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Adjust a spatial suitability layer based on this environmental layers, and distribute species’ individuals weighted by this layer</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Distribute the species' individuals around it</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Implement different field-based sampling designs</span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Obtain sampled data of the species (abundance and detections)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Conversion of the sampled data into formats ready for statistical analysis (abundance and presence/absence data)</span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>With an extra example to check the collinearity between variables.</span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="al">![**Figure 1.** Diagram showing the various general areas that this package can address.](images/schedule.png)</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="al">![**Figure 1.** Diagram showing the various general areas that ecoforge package can address.](images/schedule.png)</span></span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>It allows researchers to:</span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
@@ -1030,12 +1015,12 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>This website provides all the information and details about the functions included in the package, as well as some examples of complete simulation vignettes.</span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## When should I use Ecoforge?</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## When should I use ecoforge?</span></span>
 <span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>*EcoForge* is particularly useful when controlled and reproducible scenarios are needed. For example:</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>*ecoForge* is particularly useful when controlled and reproducible scenarios are needed. For example:</span>
 <span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Testing the performance of spatial models under known conditions</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Evaluating the effect of sampling design on model accuracy</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Evaluating the effect of different possible artefacts, related with sampling design or ecological aspects, on model accuracy</span>
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Teaching and demonstrating concepts in ecological modelling</span>
 <span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Installation</span></span>
@@ -1048,15 +1033,15 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:ecoforge"</span>)</span>
 <span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Functions Reference</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Functions Workflow and Reference</span></span>
 <span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>Ecoforge functions are organized following the logical steps of a virtual ecology workflow. Functions are grouped according to the procedure being carried out: (A) generating the spatial patterns of environmental variables, (B) transforming that information into different ranges or distributions, (C) generating the spatial patterns of the target species, and (D) collecting data from those spatial patterns with different sampling strategies, and preparing them in a format suitable for the models to be applied (Figure 2).</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>ecoforge functions are organized following the logical steps of a virtual ecology workflow. Functions are grouped according to the procedure being carried out: (A) generating the spatial patterns of environmental variables, (B) adjusting that information into a species' suitability/expected abundance layer, and distributing its individuals within this layer, (C) implementing of different field-based sampling designs to collect data, and (D) conversion of the sampled data into formats ready for statistical analysis (Figure 2). Although the functions are typically chained in this order, each one returns a standard R object (a data frame, a SpatRaster, or a spatstat 'ppp' object) and can equally be combined with other packages, or used independently of the rest of the pipeline.</span>
 <span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="al">![**Figure 2.** This flowchart illustrates the relationships and dependencies among the functions included in this package. Although this represents the general workflow established when creating these functions, it is possible to combine them in other ways or use them more independently.](images/Functions_diagram2.png)</span></span>
 <span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Create environment spatial pattern</span></span>
 <span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>Functions to generate modulated spatially autocorrelated environmental variables using Gaussian simulations with a Spherical model.</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>Functions to generate modulated spatially autocorrelated environmental variables using Gaussian simulations with a Spherical model based on *gstat* package.</span>
 <span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
 <span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
@@ -1065,55 +1050,48 @@ An R package with a set of tools for simulating spatial data: ecological environ
 <span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`generateMonthlyTemp()`</span><span class="co">](reference/generateMonthlyTemp.html)</span> <span class="pp">|</span> Derives monthly minimum, average and maximum temperature from annual data, based on 'generateClim()' output <span class="pp">|</span></span>
 <span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`generateMonthlyPrec()`</span><span class="co">](reference/generateMonthlyPrec.html)</span> <span class="pp">|</span> Derives monthly precipitation from annual data with seasonal pattern, based on 'generateClim()' output <span class="pp">|</span></span>
 <span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data transformation</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### Adjust species' spatial pattern</span></span>
 <span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>Utility functions to rescale or transform variables and suitabilty patterns before using them to generate species' data.</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>Utility functions to modulate the species' suitability/expected abundance pattern or rescale values. Also use this spatial pattern to distribute species' individuals or occurrences within this layer extension, employing an inhomogeneous Poisson point process based on *spatstat* package.</span>
 <span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
 <span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
 <span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`scale01()`</span><span class="co">](reference/scale01.html)</span> <span class="pp">|</span> Linearly rescales any variable to the <span class="sc">\[</span>0, 1<span class="sc">\]</span> range <span class="pp">|</span></span>
 <span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`logistic()`</span><span class="co">](reference/logistic.html)</span> <span class="pp">|</span> Applies a logistic transformation to control distibution of data frequency <span class="pp">|</span></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="fu">### Create species spatial pattern</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>Generates virtual species occurrences in space based on a suitability layer, simulating an inhomogeneous Poisson point process.</span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`generatePoints()`</span><span class="co">](reference/generatePoints.html)</span> <span class="pp">|</span> Distributes individuals as points across the landscape according to habitat suitability <span class="pp">|</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sampling data (I)</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>Functions to first define survey locations and and then simulate field sampling procedures, returning detection distances for each individual inside the detection area of the sampling unit.</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`generatePoints()`</span><span class="co">](reference/generatePoints.html)</span> <span class="pp">|</span> Distributes individuals as points across the landscape according to habitat suitability <span class="pp">|</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sample data</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>Functions to first define survey locations and and then simulate field sampling procedures, returning detection distances for each individual inside the detection area of the sampling unit.</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`uniformSamp()`</span><span class="co">](reference/uniformSamp.html)</span> <span class="pp">|</span> Places survey sites on a regular systematic grid <span class="pp">|</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`randomSamp()`</span><span class="co">](reference/randomSamp.html)</span> <span class="pp">|</span> Places survey sites at random positions within a grid <span class="pp">|</span></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`pointSample()`</span><span class="co">](reference/pointSample.html)</span> <span class="pp">|</span> Simulates point count surveys within a detection radius <span class="pp">|</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`transectSample()`</span><span class="co">](reference/transectSample.html)</span> <span class="pp">|</span> Simulates line transect surveys within a detection range <span class="pp">|</span></span>
 <span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`uniformSamp()`</span><span class="co">](reference/uniformSamp.html)</span> <span class="pp">|</span> Places survey sites on a regular systematic grid <span class="pp">|</span></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`randomSamp()`</span><span class="co">](reference/randomSamp.html)</span> <span class="pp">|</span> Places survey sites at random positions within a grid <span class="pp">|</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`pointSample()`</span><span class="co">](reference/pointSample.html)</span> <span class="pp">|</span> Simulates point count surveys within a detection radius <span class="pp">|</span></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`transectSample()`</span><span class="co">](reference/transectSample.html)</span> <span class="pp">|</span> Simulates line transect surveys within a detection range <span class="pp">|</span></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sampling data (II)</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data conversion</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>Functions to convert raw sampling output (distances for each individual inside the detection area) into formats ready for the models to be applied (counts, presence/absence, detections/not detections).</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`countOcc()`</span><span class="co">](reference/countOcc.html)</span> <span class="pp">|</span> Counts of detected individuals per survey site <span class="pp">|</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`abundance2pres()`</span><span class="co">](reference/abundance2pres.html)</span> <span class="pp">|</span> Converts abundance counts to presence/absence considering imperfect detection <span class="pp">|</span></span>
 <span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>Functions to convert raw sampling output (distances for each individual inside the detection area) into formats ready for the models to be applied.</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Available vignettes</span></span>
 <span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------------------------|----------------------------------------|</span></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`countOcc()`</span><span class="co">](reference/countOcc.html)</span> <span class="pp">|</span> Counts of detected individuals per survey site <span class="pp">|</span></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`abundance2pres()`</span><span class="co">](reference/abundance2pres.html)</span> <span class="pp">|</span> Converts abundance counts to presence/absence considering imperfect detection <span class="pp">|</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Ferrer-Ferrando et al. Ecography</span><span class="co">](vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html)</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Package Example</span><span class="co">](vignettes/Package_Example/QUARTO_ECOFORGE_HTML_PDF.html)</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## Citation</span></span>
 <span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="fu">## Available vignettes</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>For now, there is only one article available that uses some of its features as a reference. So if you use *ecoForge* in your research, please cite this work:</span>
 <span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Ferrer-Ferrando et al. Ecography</span><span class="co">](vignettes/Ferrer-Ferrando_etal_Ecography/Simulation.vignette.html)</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Package Example</span><span class="co">](vignettes/Package_Example/QUARTO_ECOFORGE_HTML_PDF.html)</span></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## Citation</span></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>For now, there is only one article available that uses some of its features as a reference. So if you use EcoForge in your research, please cite this work:</span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Ferrer-Ferrando, D., Tarroso, P., Luis Tellería, J., Acevedo, P. and Fernández-López, J. (2025), *Disentangling the effect of the spatial scale and species spatial pattern on the abundance–suitability relationship*. Ecography, 2025: e07766. https://doi.org/10.1111/ecog.07766</span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>We will soon have a software note focused on this package available as a citation reference.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Ferrer-Ferrando, D., Tarroso, P., Luis Tellería, J., Acevedo, P. and Fernández-López, J. (2025), *Disentangling the effect of the spatial scale and species spatial pattern on the abundance–suitability relationship*. Ecography, 2025: e07766. https://doi.org/10.1111/ecog.07766</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>We will soon have a software note focused on this package available as a citation reference.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

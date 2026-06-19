@@ -8,7 +8,7 @@ The package needs to be installed from this repository with 'devtools' library:
 
 ```{r}
 # install.packages("devtools")
-install_github("https://github.com/NatureProtectionDFF/Ecoforge-R-package")
+devtools::install_github("NatureProtectionDFF/Ecoforge-R-package")
 
 library(ecoforge)
 ls("package:ecoforge")

@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Ecoforge R package",
+    "title": "ecoforge R package",
     "section": "",
     "text": "An R package with a set of tools for simulating spatial data: ecological environments and generate species’ counts or presence/absence data for ecological analyses.",
     "crumbs": [
@@ -12,9 +12,9 @@
   {
     "objectID": "index.html#what-is-ecoforge",
     "href": "index.html#what-is-ecoforge",
-    "title": "Ecoforge R package",
-    "section": "What is Ecoforge?",
-    "text": "What is Ecoforge?\nThe purpose of Ecoforge is to simulate natural processes in space for subsequent analysis. This package enables you to:\n\nCreate new spatial environmental layers (predictors)\nAdjust a spatial suitability layer based on this environmental layers\nDistribute the species’ individuals around it\nObtain sampled data of the species (abundance and detections)\n\nWith an extra example to check the collinearity between variables.\n\n\n\nFigure 1. Diagram showing the various general areas that this package can address.\n\n\nIt allows researchers to:\n\nSimulate spatial layers of environmental variables with varying degrees of spatial autocorrelation (climate, vegetation, land use, etc.).\nGenerate spatial layers of environmental suitability for virtual species, as well as distribute individuals as spatial points across their surface.\nApply different sampling strategies (using point counts or transects, and employing uniform or random sampling) to the simulated individuals.\nConvert the simulated data into presence/absence or count formats ready for use in various spatial ecology models (e.g., habitat selection studies, species distribution models, etc.).\n\nThis website provides all the information and details about the functions included in the package, as well as some examples of complete simulation vignettes.",
+    "title": "ecoforge R package",
+    "section": "What is ecoforge?",
+    "text": "What is ecoforge?\nThe purpose of ecoforge is to simulate natural processes in space for subsequent analysis. This package enables you to:\n\nCreate new spatial environmental layers (predictors)\nAdjust a spatial suitability layer based on this environmental layers, and distribute species’ individuals weighted by this layer\nImplement different field-based sampling designs\nConversion of the sampled data into formats ready for statistical analysis (abundance and presence/absence data)\n\nWith an extra example to check the collinearity between variables.\n\n\n\nFigure 1. Diagram showing the various general areas that ecoforge package can address.\n\n\nIt allows researchers to:\n\nSimulate spatial layers of environmental variables with varying degrees of spatial autocorrelation (climate, vegetation, land use, etc.).\nGenerate spatial layers of environmental suitability for virtual species, as well as distribute individuals as spatial points across their surface.\nApply different sampling strategies (using point counts or transects, and employing uniform or random sampling) to the simulated individuals.\nConvert the simulated data into presence/absence or count formats ready for use in various spatial ecology models (e.g., habitat selection studies, species distribution models, etc.).\n\nThis website provides all the information and details about the functions included in the package, as well as some examples of complete simulation vignettes.",
     "crumbs": [
       "Home"
     ]
@@ -22,9 +22,9 @@
   {
     "objectID": "index.html#when-should-i-use-ecoforge",
     "href": "index.html#when-should-i-use-ecoforge",
-    "title": "Ecoforge R package",
-    "section": "When should I use Ecoforge?",
-    "text": "When should I use Ecoforge?\nEcoForge is particularly useful when controlled and reproducible scenarios are needed. For example:\n\nTesting the performance of spatial models under known conditions\nEvaluating the effect of sampling design on model accuracy\nTeaching and demonstrating concepts in ecological modelling",
+    "title": "ecoforge R package",
+    "section": "When should I use ecoforge?",
+    "text": "When should I use ecoforge?\necoForge is particularly useful when controlled and reproducible scenarios are needed. For example:\n\nTesting the performance of spatial models under known conditions\nEvaluating the effect of different possible artefacts, related with sampling design or ecological aspects, on model accuracy\nTeaching and demonstrating concepts in ecological modelling",
     "crumbs": [
       "Home"
     ]
@@ -32,7 +32,7 @@
   {
     "objectID": "index.html#installation",
     "href": "index.html#installation",
-    "title": "Ecoforge R package",
+    "title": "ecoforge R package",
     "section": "Installation",
     "text": "Installation\n# install.packages(\"devtools\")\ndevtools::install_github(\"NatureProtectionDFF/Ecoforge-R-package\")\n\nlibrary(ecoforge)\nls(\"package:ecoforge\")",
     "crumbs": [
@@ -40,11 +40,11 @@
     ]
   },
   {
-    "objectID": "index.html#functions-reference",
-    "href": "index.html#functions-reference",
-    "title": "Ecoforge R package",
-    "section": "Functions Reference",
-    "text": "Functions Reference\nEcoforge functions are organized following the logical steps of a virtual ecology workflow. Functions are grouped according to the procedure being carried out: (A) generating the spatial patterns of environmental variables, (B) transforming that information into different ranges or distributions, (C) generating the spatial patterns of the target species, and (D) collecting data from those spatial patterns with different sampling strategies, and preparing them in a format suitable for the models to be applied (Figure 2).\n\n\n\nFigure 2. This flowchart illustrates the relationships and dependencies among the functions included in this package. Although this represents the general workflow established when creating these functions, it is possible to combine them in other ways or use them more independently.\n\n\n\nCreate environment spatial pattern\nFunctions to generate modulated spatially autocorrelated environmental variables using Gaussian simulations with a Spherical model.\n\n\n\nFunction\nDescription\n\n\n\n\ngenerateVar()\nGenerates a single variable (e.g. vegetation, terrain) with modulated spatial autocorrelation\n\n\ngenerateClim()\nGenerates a full climate dataset including temperature and precipitation with modulated spatial autocorrelation\n\n\ngenerateMonthlyTemp()\nDerives monthly minimum, average and maximum temperature from annual data, based on ‘generateClim()’ output\n\n\ngenerateMonthlyPrec()\nDerives monthly precipitation from annual data with seasonal pattern, based on ‘generateClim()’ output\n\n\n\n\n\nData transformation\nUtility functions to rescale or transform variables and suitabilty patterns before using them to generate species’ data.\n\n\n\nFunction\nDescription\n\n\n\n\nscale01()\nLinearly rescales any variable to the [0, 1] range\n\n\nlogistic()\nApplies a logistic transformation to control distibution of data frequency\n\n\n\n\n\nCreate species spatial pattern\nGenerates virtual species occurrences in space based on a suitability layer, simulating an inhomogeneous Poisson point process.\n\n\n\nFunction\nDescription\n\n\n\n\ngeneratePoints()\nDistributes individuals as points across the landscape according to habitat suitability\n\n\n\n\n\nSampling data (I)\nFunctions to first define survey locations and and then simulate field sampling procedures, returning detection distances for each individual inside the detection area of the sampling unit.\n\n\n\nFunction\nDescription\n\n\n\n\nuniformSamp()\nPlaces survey sites on a regular systematic grid\n\n\nrandomSamp()\nPlaces survey sites at random positions within a grid\n\n\npointSample()\nSimulates point count surveys within a detection radius\n\n\ntransectSample()\nSimulates line transect surveys within a detection range\n\n\n\n\n\nSampling data (II)\nFunctions to convert raw sampling output (distances for each individual inside the detection area) into formats ready for the models to be applied.\n\n\n\nFunction\nDescription\n\n\n\n\ncountOcc()\nCounts of detected individuals per survey site\n\n\nabundance2pres()\nConverts abundance counts to presence/absence considering imperfect detection",
+    "objectID": "index.html#functions-workflow-and-reference",
+    "href": "index.html#functions-workflow-and-reference",
+    "title": "ecoforge R package",
+    "section": "Functions Workflow and Reference",
+    "text": "Functions Workflow and Reference\necoforge functions are organized following the logical steps of a virtual ecology workflow. Functions are grouped according to the procedure being carried out: (A) generating the spatial patterns of environmental variables, (B) adjusting that information into a species’ suitability/expected abundance layer, and distributing its individuals within this layer, (C) implementing of different field-based sampling designs to collect data, and (D) conversion of the sampled data into formats ready for statistical analysis (Figure 2). Although the functions are typically chained in this order, each one returns a standard R object (a data frame, a SpatRaster, or a spatstat ‘ppp’ object) and can equally be combined with other packages, or used independently of the rest of the pipeline.\n\n\n\nFigure 2. This flowchart illustrates the relationships and dependencies among the functions included in this package. Although this represents the general workflow established when creating these functions, it is possible to combine them in other ways or use them more independently.\n\n\n\nCreate environment spatial pattern\nFunctions to generate modulated spatially autocorrelated environmental variables using Gaussian simulations with a Spherical model based on gstat package.\n\n\n\nFunction\nDescription\n\n\n\n\ngenerateVar()\nGenerates a single variable (e.g. vegetation, terrain) with modulated spatial autocorrelation\n\n\ngenerateClim()\nGenerates a full climate dataset including temperature and precipitation with modulated spatial autocorrelation\n\n\ngenerateMonthlyTemp()\nDerives monthly minimum, average and maximum temperature from annual data, based on ‘generateClim()’ output\n\n\ngenerateMonthlyPrec()\nDerives monthly precipitation from annual data with seasonal pattern, based on ‘generateClim()’ output\n\n\n\n\n\nAdjust species’ spatial pattern\nUtility functions to modulate the species’ suitability/expected abundance pattern or rescale values. Also use this spatial pattern to distribute species’ individuals or occurrences within this layer extension, employing an inhomogeneous Poisson point process based on spatstat package.\n\n\n\nFunction\nDescription\n\n\n\n\nscale01()\nLinearly rescales any variable to the [0, 1] range\n\n\nlogistic()\nApplies a logistic transformation to control distibution of data frequency\n\n\ngeneratePoints()\nDistributes individuals as points across the landscape according to habitat suitability\n\n\n\n\n\nSample data\nFunctions to first define survey locations and and then simulate field sampling procedures, returning detection distances for each individual inside the detection area of the sampling unit.\n\n\n\nFunction\nDescription\n\n\n\n\nuniformSamp()\nPlaces survey sites on a regular systematic grid\n\n\nrandomSamp()\nPlaces survey sites at random positions within a grid\n\n\npointSample()\nSimulates point count surveys within a detection radius\n\n\ntransectSample()\nSimulates line transect surveys within a detection range\n\n\n\n\n\nData conversion\nFunctions to convert raw sampling output (distances for each individual inside the detection area) into formats ready for the models to be applied (counts, presence/absence, detections/not detections).\n\n\n\nFunction\nDescription\n\n\n\n\ncountOcc()\nCounts of detected individuals per survey site\n\n\nabundance2pres()\nConverts abundance counts to presence/absence considering imperfect detection",
     "crumbs": [
       "Home"
     ]
@@ -52,7 +52,7 @@
   {
     "objectID": "index.html#available-vignettes",
     "href": "index.html#available-vignettes",
-    "title": "Ecoforge R package",
+    "title": "ecoforge R package",
     "section": "Available vignettes",
     "text": "Available vignettes\n\nFerrer-Ferrando et al. Ecography\nPackage Example",
     "crumbs": [
@@ -62,9 +62,9 @@
   {
     "objectID": "index.html#citation",
     "href": "index.html#citation",
-    "title": "Ecoforge R package",
+    "title": "ecoforge R package",
     "section": "Citation",
-    "text": "Citation\nFor now, there is only one article available that uses some of its features as a reference. So if you use EcoForge in your research, please cite this work:\n\nFerrer-Ferrando, D., Tarroso, P., Luis Tellería, J., Acevedo, P. and Fernández-López, J. (2025), Disentangling the effect of the spatial scale and species spatial pattern on the abundance–suitability relationship. Ecography, 2025: e07766. https://doi.org/10.1111/ecog.07766\n\nWe will soon have a software note focused on this package available as a citation reference.",
+    "text": "Citation\nFor now, there is only one article available that uses some of its features as a reference. So if you use ecoForge in your research, please cite this work:\n\nFerrer-Ferrando, D., Tarroso, P., Luis Tellería, J., Acevedo, P. and Fernández-López, J. (2025), Disentangling the effect of the spatial scale and species spatial pattern on the abundance–suitability relationship. Ecography, 2025: e07766. https://doi.org/10.1111/ecog.07766\n\nWe will soon have a software note focused on this package available as a citation reference.",
     "crumbs": [
       "Home"
     ]
