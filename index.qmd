@@ -45,7 +45,7 @@ This website provides all the information and details about the functions includ
 
 ## When should I use ecoforge?
 
-*ecoForge* is particularly useful when controlled and reproducible scenarios are needed. For example:
+*ecoforge* is particularly useful when controlled and reproducible scenarios are needed. For example:
 
 -   Testing the performance of spatial models under known conditions
 -   Evaluating the effect of different possible artefacts, related with sampling design or ecological aspects, on model accuracy

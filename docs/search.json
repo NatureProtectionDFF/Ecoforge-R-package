@@ -24,7 +24,7 @@
     "href": "index.html#when-should-i-use-ecoforge",
     "title": "ecoforge R package",
     "section": "When should I use ecoforge?",
-    "text": "When should I use ecoforge?\necoForge is particularly useful when controlled and reproducible scenarios are needed. For example:\n\nTesting the performance of spatial models under known conditions\nEvaluating the effect of different possible artefacts, related with sampling design or ecological aspects, on model accuracy\nTeaching and demonstrating concepts in ecological modelling",
+    "text": "When should I use ecoforge?\necoforge is particularly useful when controlled and reproducible scenarios are needed. For example:\n\nTesting the performance of spatial models under known conditions\nEvaluating the effect of different possible artefacts, related with sampling design or ecological aspects, on model accuracy\nTeaching and demonstrating concepts in ecological modelling",
     "crumbs": [
       "Home"
     ]
